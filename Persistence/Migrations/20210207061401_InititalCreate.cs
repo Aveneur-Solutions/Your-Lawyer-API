@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class LawyerServiceRelatedEntitiesAdded : Migration
+    public partial class InititalCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,6 +82,56 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AreaOfLaws",
+                columns: new[] { "Id", "AreaOfLawName" },
+                values: new object[] { new Guid("77b98aad-794b-476d-82ea-4657b6f497e2"), "Case" });
+
+            migrationBuilder.InsertData(
+                table: "AreaOfLaws",
+                columns: new[] { "Id", "AreaOfLawName" },
+                values: new object[] { new Guid("1d0da5be-2a5c-4dd9-aad9-98e0054997bc"), "Criminal" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("67752983-6694-4fec-a919-c96aa5a47bbc"), "Dhaka" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("cc77b860-7ff2-4ef1-9fb8-c2ed2f3967af"), "Chittagong" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("8798ea69-ec65-4813-a5ee-1aad581cb546"), "Rajshahi" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("b0d29ac1-74ee-413d-b05f-9e0b1cf74dd2"), "Khulna" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("c4571dd4-ca0b-4781-a059-8f17ce0ab2cb"), "Sylhet" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("e4db70cb-001d-4776-bf83-586f94385084"), "Comilla" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("722f5f32-8398-4912-9f09-99ea57dd5c9e"), "Barisal" });
+
+            migrationBuilder.InsertData(
+                table: "Divisions",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { new Guid("32b7e7c9-d7fa-43b2-93b3-1c025ec2ee3b"), "Rangpur " });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LawyerAndAreaOfLaws_AreaOfLawId",

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence.DataContext;
+using Persistence.Initialization;
 
 namespace API
 {
@@ -28,6 +29,7 @@ namespace API
                     var context = services.GetRequiredService<YourLawyerContext>();
                     //If any migration has not yet been migrated or no database is there it will solve the issue
                     context.Database.Migrate();
+                    Seed.SeedData(context).Wait();
                 }
                 catch (Exception ex)
                 {
