@@ -9,26 +9,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
     public class LawyerController : BaseController
     {
+        // [Route("")]
+        // [Route("api/lawyer")]
+        // [HttpGet]
+        // public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
+        // {
+        //     Console.WriteLine("Hi");
+        //     return await Mediator.Send(new LawyerList.Query());
+        // }
+        [Route("api/lawyer/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<LawyerDTO>> LawyerDetails(Guid id)
+        {
+            return await Mediator.Send(new LawyerDetails.Query { Id = id });
+        }
+        [Route("api/searchlawyers/{divisionName}")]
+        [HttpGet]
 
-        [HttpGet] 
-        public async Task<ActionResult<List<Lawyer>>> LawyerList()
+        public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(string divisionName)
         {
-            return await Mediator.Send(new LawyerList.Query());
+            // Console.WriteLine("Hi");
+            return await Mediator.Send(new LawyerListWithParameters.Query { DivisionName = divisionName });
         }
-         [HttpGet("{id}")] 
-        public async Task<ActionResult<Lawyer>> LawyerDetails(Guid id)
+        
+        [Route("api/upload")]
+        [HttpPost]
+        public async Task<ActionResult<Unit>> UploadLawyer(UploadLawyer.Command command)
         {
-            
-            return await Mediator.Send(new LawyerDetails.Query{Id = id});
+            return await Mediator.Send(command);
         }
-          [HttpGet("/divisionList")] 
-        public async Task<ActionResult<List<Division>>> DivisionList()
-        {
-            return await Mediator.Send(new DivisionList.Query());
-        }
+
     }
 }
