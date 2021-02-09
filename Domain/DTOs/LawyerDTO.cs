@@ -18,8 +18,8 @@ namespace Domain.DTOs
         public DateTime EndingOfficeHour { get; set; }
         public string ProfileImageLocation { get; set; }
         public int WorkingExperience { get; set; }
-        public ICollection<LawyerAndAreaOfLaw> LawyersAreaOfLaws { get; set; }
-        public Guid DivisionId { get; set; }
-        public Division Division { get; set; }
+      //  public ICollection<LawyerAndAreaOfLaw> LawyersAreaOfLaws { get; set; }
+        public string DivisionName { get; set; }
+
     }
 }

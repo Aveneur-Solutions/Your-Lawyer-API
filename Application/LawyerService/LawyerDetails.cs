@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domain.DTOs;
 using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,12 @@ namespace Application.LawyerService
 {
     public class LawyerDetails
     {
-        public class Query : IRequest<Lawyer>
+        public class Query : IRequest<LawyerDTO>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Lawyer>
+        public class Handler : IRequestHandler<Query, LawyerDTO>
         {
             private readonly YourLawyerContext _context;
             private readonly IMapper _mapper;
@@ -27,11 +28,14 @@ namespace Application.LawyerService
                 _context = context;
             }
 
-            public async Task<Lawyer> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<LawyerDTO> Handle(Query request, CancellationToken cancellationToken)
             {
-                var lawyer = await _context.Lawyers.FirstOrDefaultAsync(x => x.Id == request.Id);
+                var lawyer = await _context.Lawyers
+                .Include(x=> x.Division)
+                .Include(x => x.LawyersAreaOfLaws)
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-                return (lawyer);
+                return _mapper.Map<Lawyer,LawyerDTO>(lawyer);
 
                 //throw new System.NotImplementedException();
             }
