@@ -17,7 +17,7 @@ namespace API
     {
         public static void Main(string[] args)
         {
-             var host = CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
             //Creating scope to Seed the Database
             using (var scope = host.Services.CreateScope())
             {

@@ -17,7 +17,7 @@ namespace Application.LawyerService
     // Lists generic parameter should be LawyerDTO . Keeping it lawyer for the time being
     public class LawyerList
     {
-               public class Query : IRequest<List<LawyerDTO>> { }
+        public class Query : IRequest<List<LawyerDTO>> { }
 
         public class Handler : IRequestHandler<Query, List<LawyerDTO>>
         {
@@ -33,12 +33,12 @@ namespace Application.LawyerService
             {
                 var lawyers = await _context.Lawyers.
                 Include(x => x.Division).
-                Include(x=> x.LawyersAreaOfLaws)
+                Include(x => x.LawyersAreaOfLaws)
                 .ToListAsync();
 
-              
 
-                return _mapper.Map<List<Lawyer>,List<LawyerDTO>>(lawyers);
+
+                return _mapper.Map<List<Lawyer>, List<LawyerDTO>>(lawyers);
 
                 //throw new System.NotImplementedException();
             }

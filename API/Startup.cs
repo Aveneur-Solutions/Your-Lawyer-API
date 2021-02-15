@@ -42,7 +42,7 @@ namespace API
                WithOrigins("http://localhost:3000");
            });
        });
-           services.AddMediatR(typeof(LawyerList.Handler).Assembly);
+            services.AddMediatR(typeof(LawyerList.Handler).Assembly);
             services.AddAutoMapper(typeof(LawyerList.Handler));
         }
 

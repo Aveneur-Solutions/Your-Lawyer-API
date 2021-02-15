@@ -53,14 +53,11 @@ namespace Application.LawyerService
 
                 var lawyer = new Lawyer
                 {
-                    Id = request.Id,
+                   // Id = request.Id,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Description = request.Description,
                     ProfileImageLocation = request.ProfileImageLocation,
-                    StartingOfficeHour = request.StartingOfficeHour,
-                    EndingOfficeHour=request.EndingOfficeHour,
-                    Degree = request.Degree,
                     DivisionId = division.Id,
                     WorkingExperience=request.WorkingExperience,
                     Location = request.Location
