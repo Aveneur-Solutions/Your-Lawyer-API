@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain.DTOs;
 using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,13 +18,13 @@ namespace Application.LawyerService
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string Location { get; set; }
-            public string Degree { get; set; }
+            public ICollection<LawyerEducationalBG> Degrees { get; set; }
             public string Description { get; set; }
-            public DateTime StartingOfficeHour { get; set; }
-            public DateTime EndingOfficeHour { get; set; }
             public string ProfileImageLocation { get; set; }
             public int WorkingExperience { get; set; }
             public string DivisionName { get; set; }
+            public string Rank { get; set; }
+            public ICollection<string> LawyerAndAreaOfLaws { get; set; }
 
         }
         // public class CommandValidator : AbstractValidator<Command>
@@ -49,27 +51,64 @@ namespace Application.LawyerService
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var division = await _context.Divisions.SingleOrDefaultAsync(x => x.Name == request.DivisionName);
 
+                // searching for the division instance in datbase by division name 
+                var division = await _context.Divisions.SingleOrDefaultAsync(x => x.Name == request.DivisionName);
                 var lawyer = new Lawyer
                 {
-                   // Id = request.Id,
+                    // Id = request.Id,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Description = request.Description,
                     ProfileImageLocation = request.ProfileImageLocation,
-                    DivisionId = division.Id,
-                    WorkingExperience=request.WorkingExperience,
-                    Location = request.Location
-                   
+                    Division = division,
+                    WorkingExperience = request.WorkingExperience,
+                    LawyerEducationalBGs = request.Degrees,
+                    LawyerRank = request.Rank
+
                 };
-                _context.Lawyers.Add(lawyer);
 
-            
+                try
+                {
+                    var lawyerAndAreaOfLawList = new List<LawyerAndAreaOfLaw> { };
 
-                var result = await _context.SaveChangesAsync() > 0;
+                    //iterates the LawyerAreaOfLaws from the request and adds each 
+                    foreach (var areaOflaw in request.LawyerAndAreaOfLaws)
+                    {
+                        // Searches for the areaOfLaw instance from database by areaoflaw name
+                        var areaOfLaw = await _context.AreaOfLaws.SingleOrDefaultAsync(x => x.AreaOfLawName == areaOflaw);
 
-                if (result) return Unit.Value;
+                        // Creating new lawyerAndAreaOfLaw to add them in the list
+                        var lawyerAndAreaOfLaw = new LawyerAndAreaOfLaw
+                        {
+                            Lawyer = lawyer,
+                            AreaOfLaw = areaOfLaw
+                        };
+                        lawyerAndAreaOfLawList.Add(lawyerAndAreaOfLaw);
+                    }
+                    //Adding the lawyer to Lawyers table 
+                    await _context.Lawyers.AddAsync(lawyer);
+                    // Adding the lawyerAndAreaOfLaw list to the lawyer and area of law table
+                    await _context.LawyerAndAreaOfLaws.AddRangeAsync(lawyerAndAreaOfLawList);
+                    var result = await _context.SaveChangesAsync() > 0;
+                     if (result) return Unit.Value;
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+                // this lawyer instance is created to be added Lawyers table 
+
+
+                // List to add all area of laws of one lawyer
+
+
+                // The previous methods tracks the instances as submittable to database 
+                //the method below submits the tracked data .
+                // this method returns 0 if data is successfully submitted 
+                
+
+               
 
                 throw new Exception("Problem saving data");
 

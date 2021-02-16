@@ -27,14 +27,36 @@ namespace Persistence.DataContext
               new Division { Id = Guid.NewGuid(), Name = "Rajshahi" },
               new Division { Id = Guid.NewGuid(), Name = "Khulna" },
               new Division { Id = Guid.NewGuid(), Name = "Sylhet" },
-              new Division { Id = Guid.NewGuid(), Name = "Comilla" },
+              new Division { Id = Guid.NewGuid(), Name = "Mymensingh" },
               new Division { Id = Guid.NewGuid(), Name = "Barisal" },
               new Division { Id = Guid.NewGuid(), Name = "Rangpur " }
           );
             builder.Entity<AreaOfLaw>().HasData(
-                new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Case" },
-                new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Criminal" }
+                new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Banking and Finance Law" },
+                new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Civil Litigation" },
+                 new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Dispute Resolution" },
+                  new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Commercial Law" },
+                   new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Construction Law" },
+                    new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Corporate Law" },
+                     new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Criminal Law" },
+                      new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Family Law" }
             );
+
+            /*
+              Banking and Finance Law
+Civil Litigation
+Dispute Resolution
+Commercial Law
+Construction Law
+Consumer Law
+Corporate Law
+Criminal Law
+Employment Law
+Family Law
+Housing Law
+Human Rights Law
+ 
+            */
 
         }
     }

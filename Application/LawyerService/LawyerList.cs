@@ -34,11 +34,16 @@ namespace Application.LawyerService
                 var lawyers = await _context.Lawyers.
                 Include(x => x.Division).
                 Include(x => x.LawyersAreaOfLaws)
+                .ThenInclude(y => y.AreaOfLaw)
+                .Include(x => x.LawyerEducationalBGs)
                 .ToListAsync();
-
-
-
-                return _mapper.Map<List<Lawyer>, List<LawyerDTO>>(lawyers);
+ 
+              
+              //Mapping all attributes from Lawyer class to LawyerDTO  
+                var mappedLawyers = _mapper.Map<List<Lawyer>, List<LawyerDTO>>(lawyers);
+               
+ 
+                return mappedLawyers;
 
                 //throw new System.NotImplementedException();
             }

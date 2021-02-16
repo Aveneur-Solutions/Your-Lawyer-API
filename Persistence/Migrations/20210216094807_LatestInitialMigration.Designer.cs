@@ -9,8 +9,8 @@ using Persistence.DataContext;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(YourLawyerContext))]
-    [Migration("20210215142348_initialCreate")]
-    partial class initialCreate
+    [Migration("20210216094807_LatestInitialMigration")]
+    partial class LatestInitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,13 +34,43 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d74d1aed-6e7f-457b-92eb-b016f8d7176d"),
-                            AreaOfLawName = "Case"
+                            Id = new Guid("85762f94-9412-4181-b63a-34b82c15847e"),
+                            AreaOfLawName = "Banking and Finance Law"
                         },
                         new
                         {
-                            Id = new Guid("7d9140ee-8194-41a7-b66f-192c5da749f9"),
-                            AreaOfLawName = "Criminal"
+                            Id = new Guid("66166738-a313-4d0d-86dc-fe32be749923"),
+                            AreaOfLawName = "Civil Litigation"
+                        },
+                        new
+                        {
+                            Id = new Guid("79f89c40-cda3-4b6c-94a1-1c4aebd1baea"),
+                            AreaOfLawName = "Dispute Resolution"
+                        },
+                        new
+                        {
+                            Id = new Guid("fb7af680-856b-42b5-998f-9db17687d4fa"),
+                            AreaOfLawName = "Commercial Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("288e9227-7493-43df-90a8-18c9089cfbfb"),
+                            AreaOfLawName = "Construction Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("4edafffe-dff6-47f7-95f8-23a76c728e22"),
+                            AreaOfLawName = "Corporate Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("6a46f61d-6368-441c-a934-7382cc41dbfb"),
+                            AreaOfLawName = "Criminal Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("3e793fa2-4d40-4936-95d1-6dad4bb57c23"),
+                            AreaOfLawName = "Family Law"
                         });
                 });
 
@@ -60,42 +90,42 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9addd8f0-b663-4c71-af8b-08e6c617c00c"),
+                            Id = new Guid("994c68fa-5553-49a5-b64f-64189e0d8065"),
                             Name = "Dhaka"
                         },
                         new
                         {
-                            Id = new Guid("4a270b22-6334-449f-9f1c-292abceba671"),
+                            Id = new Guid("886786ce-0361-4e26-bd92-a423c0862fb3"),
                             Name = "Chittagong"
                         },
                         new
                         {
-                            Id = new Guid("aed93920-8c9f-4ad5-9180-c3be8e38db41"),
+                            Id = new Guid("097ceb1e-413f-40c6-b938-f61ce759d46d"),
                             Name = "Rajshahi"
                         },
                         new
                         {
-                            Id = new Guid("45dff171-8bf0-4bd8-b680-0355cacf0836"),
+                            Id = new Guid("ec7bdf75-de26-4fc2-9be0-a108e36f367c"),
                             Name = "Khulna"
                         },
                         new
                         {
-                            Id = new Guid("173e1b09-056c-4538-bcd2-c0716a1528b7"),
+                            Id = new Guid("593d1c90-7161-4b84-b349-0001bc1e4f4a"),
                             Name = "Sylhet"
                         },
                         new
                         {
-                            Id = new Guid("c019e72e-7c1b-4663-b56d-d46e9adbdec4"),
-                            Name = "Comilla"
+                            Id = new Guid("4a2b9bee-284a-4654-95ff-439863ff8898"),
+                            Name = "Mymensingh"
                         },
                         new
                         {
-                            Id = new Guid("f05dfcef-6add-403a-b39b-08d67b1ede19"),
+                            Id = new Guid("44a809a1-7c53-4522-a312-3a5cbf3e94fe"),
                             Name = "Barisal"
                         },
                         new
                         {
-                            Id = new Guid("f734a883-55f4-476c-a9e3-300dc7915195"),
+                            Id = new Guid("c8c3de00-4a31-44c4-a5be-696192c64f07"),
                             Name = "Rangpur "
                         });
                 });

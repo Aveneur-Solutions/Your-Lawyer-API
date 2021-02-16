@@ -28,11 +28,22 @@ namespace Persistence.Initialization
                          ProfileImageLocation="/images/image.jpg",
                          WorkingExperience=10,
                          Division = division,
+                         LawyerRank="Elite",
                          LawyerEducationalBGs = new List<LawyerEducationalBG>{
                               new LawyerEducationalBG{
                                   Degree ="LLB",
                                   Institute = "IUB",
                                   PassingYear = 2020
+                              },
+                               new LawyerEducationalBG{
+                                  Degree ="MLB",
+                                  Institute = "IUB",
+                                  PassingYear = 2022
+                              },
+                               new LawyerEducationalBG{
+                                  Degree ="PLB",
+                                  Institute = "IUB",
+                                  PassingYear = 2022
                               }
                          }
                          },
@@ -44,6 +55,7 @@ namespace Persistence.Initialization
                          ProfileImageLocation="/images/image.jpg",
                          WorkingExperience=10,
                          Division = division,
+                         LawyerRank="Elite",
                            LawyerEducationalBGs = new List<LawyerEducationalBG>{
                               new LawyerEducationalBG{
                                   Degree ="LLB",
@@ -60,6 +72,7 @@ namespace Persistence.Initialization
                          ProfileImageLocation="/images/image.jpg",
                          WorkingExperience=10,
                          Division = division,
+                         LawyerRank="Elite",
                            LawyerEducationalBGs = new List<LawyerEducationalBG>{
                               new LawyerEducationalBG{
                                   Degree ="LLB",
