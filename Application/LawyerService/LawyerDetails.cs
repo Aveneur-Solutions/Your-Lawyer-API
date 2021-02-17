@@ -37,7 +37,6 @@ namespace Application.LawyerService
                 .Include(x => x.LawyerEducationalBGs)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
                 
-
                 return _mapper.Map<Lawyer,LawyerDTO>(lawyer);
 
                 //throw new System.NotImplementedException();
