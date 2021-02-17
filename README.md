@@ -1,3 +1,3 @@
 # Your-Lawyer-API
 Restful Api of Your Lawyer Application
-Get division List is not working .
+New Models added and new migration was done on the changed database model.

@@ -39,7 +39,8 @@ namespace Application.LawyerService
                 //if the user searches for lawyer by division 
                 if (!string.IsNullOrEmpty(request.DivisionName))
                 {
-                    division = await _context.Divisions.FirstOrDefaultAsync(x => x.Name == request.DivisionName);
+                    // Changing case of Division name to ignore case mismatching problem 
+                    division = await _context.Divisions.FirstOrDefaultAsync(x => x.Name.ToLower() == request.DivisionName.ToLower());
                     if (division == null) throw new System.Exception("no lawyers found in this division");
                     lawyers = lawyers.Where(x => x.DivisionId == division.Id);
                 }
@@ -47,6 +48,8 @@ namespace Application.LawyerService
                 var Lawyers = await lawyers.
                 Include(x => x.Division).
                 Include(x => x.LawyersAreaOfLaws)
+                  .ThenInclude(y => y.AreaOfLaw)
+                .Include(x => x.LawyerEducationalBGs)
                 .ToListAsync();
 
                 //Console.WriteLine(DivisionList.Divisions[2]);

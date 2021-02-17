@@ -32,13 +32,43 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("77b98aad-794b-476d-82ea-4657b6f497e2"),
-                            AreaOfLawName = "Case"
+                            Id = new Guid("85762f94-9412-4181-b63a-34b82c15847e"),
+                            AreaOfLawName = "Banking and Finance Law"
                         },
                         new
                         {
-                            Id = new Guid("1d0da5be-2a5c-4dd9-aad9-98e0054997bc"),
-                            AreaOfLawName = "Criminal"
+                            Id = new Guid("66166738-a313-4d0d-86dc-fe32be749923"),
+                            AreaOfLawName = "Civil Litigation"
+                        },
+                        new
+                        {
+                            Id = new Guid("79f89c40-cda3-4b6c-94a1-1c4aebd1baea"),
+                            AreaOfLawName = "Dispute Resolution"
+                        },
+                        new
+                        {
+                            Id = new Guid("fb7af680-856b-42b5-998f-9db17687d4fa"),
+                            AreaOfLawName = "Commercial Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("288e9227-7493-43df-90a8-18c9089cfbfb"),
+                            AreaOfLawName = "Construction Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("4edafffe-dff6-47f7-95f8-23a76c728e22"),
+                            AreaOfLawName = "Corporate Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("6a46f61d-6368-441c-a934-7382cc41dbfb"),
+                            AreaOfLawName = "Criminal Law"
+                        },
+                        new
+                        {
+                            Id = new Guid("3e793fa2-4d40-4936-95d1-6dad4bb57c23"),
+                            AreaOfLawName = "Family Law"
                         });
                 });
 
@@ -58,42 +88,42 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("67752983-6694-4fec-a919-c96aa5a47bbc"),
+                            Id = new Guid("994c68fa-5553-49a5-b64f-64189e0d8065"),
                             Name = "Dhaka"
                         },
                         new
                         {
-                            Id = new Guid("cc77b860-7ff2-4ef1-9fb8-c2ed2f3967af"),
+                            Id = new Guid("886786ce-0361-4e26-bd92-a423c0862fb3"),
                             Name = "Chittagong"
                         },
                         new
                         {
-                            Id = new Guid("8798ea69-ec65-4813-a5ee-1aad581cb546"),
+                            Id = new Guid("097ceb1e-413f-40c6-b938-f61ce759d46d"),
                             Name = "Rajshahi"
                         },
                         new
                         {
-                            Id = new Guid("b0d29ac1-74ee-413d-b05f-9e0b1cf74dd2"),
+                            Id = new Guid("ec7bdf75-de26-4fc2-9be0-a108e36f367c"),
                             Name = "Khulna"
                         },
                         new
                         {
-                            Id = new Guid("c4571dd4-ca0b-4781-a059-8f17ce0ab2cb"),
+                            Id = new Guid("593d1c90-7161-4b84-b349-0001bc1e4f4a"),
                             Name = "Sylhet"
                         },
                         new
                         {
-                            Id = new Guid("e4db70cb-001d-4776-bf83-586f94385084"),
-                            Name = "Comilla"
+                            Id = new Guid("4a2b9bee-284a-4654-95ff-439863ff8898"),
+                            Name = "Mymensingh"
                         },
                         new
                         {
-                            Id = new Guid("722f5f32-8398-4912-9f09-99ea57dd5c9e"),
+                            Id = new Guid("44a809a1-7c53-4522-a312-3a5cbf3e94fe"),
                             Name = "Barisal"
                         },
                         new
                         {
-                            Id = new Guid("32b7e7c9-d7fa-43b2-93b3-1c025ec2ee3b"),
+                            Id = new Guid("c8c3de00-4a31-44c4-a5be-696192c64f07"),
                             Name = "Rangpur "
                         });
                 });
@@ -104,16 +134,10 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Degree")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("DivisionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("EndingOfficeHour")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
@@ -122,13 +146,13 @@ namespace Persistence.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("LawyerRank")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Location")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProfileImageLocation")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("StartingOfficeHour")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("WorkingExperience")
@@ -162,6 +186,31 @@ namespace Persistence.Migrations
                     b.ToTable("LawyerAndAreaOfLaws");
                 });
 
+            modelBuilder.Entity("Domain.Models.LawyerEducationalBG", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Institute")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("LawyerId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PassingYear")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LawyerId");
+
+                    b.ToTable("LawyerEducationalBGs");
+                });
+
             modelBuilder.Entity("Domain.Models.Lawyer", b =>
                 {
                     b.HasOne("Domain.Models.Division", "Division")
@@ -181,6 +230,15 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Models.Lawyer", "Lawyer")
                         .WithMany("LawyersAreaOfLaws")
+                        .HasForeignKey("LawyerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.LawyerEducationalBG", b =>
+                {
+                    b.HasOne("Domain.Models.Lawyer", "Lawyer")
+                        .WithMany("LawyerEducationalBGs")
                         .HasForeignKey("LawyerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -15,27 +15,49 @@ namespace Persistence.DataContext
         public DbSet<Division> Divisions { get; set; }
         public DbSet<AreaOfLaw> AreaOfLaws { get; set; }
         public DbSet<LawyerAndAreaOfLaw> LawyerAndAreaOfLaws { get; set; }
-        
+        public DbSet<LawyerEducationalBG> LawyerEducationalBGs { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
-              builder.Entity<Division>()
-            .HasData(
-                new Division { Id=Guid.Parse("67752983-6694-4fec-a919-c96aa5a47bbc"),  Name = "Dhaka" },
-                new Division { Id=Guid.Parse("cc77b860-7ff2-4ef1-9fb8-c2ed2f3967af"),  Name = "Chittagong" },
-                new Division { Id=Guid.Parse("8798ea69-ec65-4813-a5ee-1aad581cb546"),  Name = "Rajshahi" },
-                new Division { Id=Guid.Parse("b0d29ac1-74ee-413d-b05f-9e0b1cf74dd2"),  Name = "Khulna" },
-                new Division { Id=Guid.Parse("c4571dd4-ca0b-4781-a059-8f17ce0ab2cb"),  Name = "Sylhet" },
-                new Division { Id=Guid.Parse("e4db70cb-001d-4776-bf83-586f94385084"),  Name = "Comilla" },
-                new Division { Id=Guid.Parse("722f5f32-8398-4912-9f09-99ea57dd5c9e"),  Name = "Barisal" },
-                new Division { Id=Guid.Parse("32b7e7c9-d7fa-43b2-93b3-1c025ec2ee3b"),  Name = "Rangpur " }
-            );
+
+            builder.Entity<Division>()
+          .HasData(
+              new Division { Id = Guid.NewGuid(), Name = "Dhaka" },
+              new Division { Id = Guid.NewGuid(), Name = "Chittagong" },
+              new Division { Id = Guid.NewGuid(), Name = "Rajshahi" },
+              new Division { Id = Guid.NewGuid(), Name = "Khulna" },
+              new Division { Id = Guid.NewGuid(), Name = "Sylhet" },
+              new Division { Id = Guid.NewGuid(), Name = "Mymensingh" },
+              new Division { Id = Guid.NewGuid(), Name = "Barisal" },
+              new Division { Id = Guid.NewGuid(), Name = "Rangpur " }
+          );
             builder.Entity<AreaOfLaw>().HasData(
-                new AreaOfLaw{Id=Guid.Parse("77b98aad-794b-476d-82ea-4657b6f497e2"),  AreaOfLawName = "Case" },
-                new AreaOfLaw{Id=Guid.Parse("1d0da5be-2a5c-4dd9-aad9-98e0054997bc"),  AreaOfLawName = "Criminal" }
+                new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Banking and Finance Law" },
+                new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Civil Litigation" },
+                 new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Dispute Resolution" },
+                  new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Commercial Law" },
+                   new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Construction Law" },
+                    new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Corporate Law" },
+                     new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Criminal Law" },
+                      new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Family Law" }
             );
-            
+
+            /*
+              Banking and Finance Law
+Civil Litigation
+Dispute Resolution
+Commercial Law
+Construction Law
+Consumer Law
+Corporate Law
+Criminal Law
+Employment Law
+Family Law
+Housing Law
+Human Rights Law
+ 
+            */
+
         }
     }
 }

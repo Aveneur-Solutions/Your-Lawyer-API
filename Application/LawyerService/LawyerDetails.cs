@@ -33,7 +33,10 @@ namespace Application.LawyerService
                 var lawyer = await _context.Lawyers
                 .Include(x=> x.Division)
                 .Include(x => x.LawyersAreaOfLaws)
+                  .ThenInclude( y => y.AreaOfLaw)
+                .Include(x => x.LawyerEducationalBGs)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
+                
 
                 return _mapper.Map<Lawyer,LawyerDTO>(lawyer);
 
