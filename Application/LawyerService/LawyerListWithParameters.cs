@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using AutoMapper;
 using Domain.DTOs;
 using Domain.Models;
@@ -52,7 +54,8 @@ namespace Application.LawyerService
                 .Include(x => x.LawyerEducationalBGs)
                 .ToListAsync();
 
-                //Console.WriteLine(DivisionList.Divisions[2]);
+                if (lawyers == null) throw new RestException(HttpStatusCode.NoContent, new { lawyers = "No lawyers found" });
+               
 
                 return _mapper.Map<List<Lawyer>, List<LawyerDTO>>(Lawyers);
 

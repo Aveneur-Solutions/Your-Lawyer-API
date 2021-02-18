@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using AutoMapper;
 using Domain.DTOs;
 using Domain.Models;
@@ -30,15 +32,19 @@ namespace Application.LawyerService
 
             public async Task<LawyerDTO> Handle(Query request, CancellationToken cancellationToken)
             {
+
+              
+                
                 var lawyer = await _context.Lawyers
                 .Include(x=> x.Division)
                 .Include(x => x.LawyersAreaOfLaws)
                   .ThenInclude( y => y.AreaOfLaw)
                 .Include(x => x.LawyerEducationalBGs)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
-                
 
-                return _mapper.Map<Lawyer,LawyerDTO>(lawyer);
+                if (lawyer == null) throw new RestException(HttpStatusCode.NotFound, new { lawyer = "Not Found" });
+                
+                return _mapper.Map<Lawyer, LawyerDTO>(lawyer);
 
                 //throw new System.NotImplementedException();
             }
