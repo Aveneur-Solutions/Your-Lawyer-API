@@ -35,7 +35,9 @@ namespace API
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
-            services.AddCors(opt =>
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();            
+            services.AddCors(opt =>            
        {
            opt.AddPolicy("CorsPolicy", policy =>
            {
@@ -57,6 +59,13 @@ namespace API
                 //app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Your Lawyer Api");
+                c.RoutePrefix = string.Empty;
+            }
+                );
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
