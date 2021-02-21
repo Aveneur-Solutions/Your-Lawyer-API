@@ -3,14 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Models;
+using Domain.Models.User;
+using Microsoft.AspNetCore.Identity;
 using Persistence.DataContext;
 
 namespace Persistence.Initialization
 {
     public class Seed
     {
-        public static async Task SeedData(YourLawyerContext context)
+        public static async Task SeedData(YourLawyerContext context,UserManager<AppUser> userManager)
         {
+
+
+            if(!userManager.Users.Any())
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser{
+                        Id = "a",
+                        FirstName = "Ashikur",
+                        LastName = "Rahman",
+                        UserName = "BadBitch",
+                        Email = "ashikurrahman80@gmail.com"
+                    },
+                     new AppUser{
+                        Id = "b",
+                        FirstName = "Ashikur",
+                        LastName = "Enan",
+                        UserName = "VeryBadBitch",
+                        Email = "ashikurrahman180@gmail.com"
+                    },
+                     new AppUser{
+                        Id = "a",
+                        FirstName = "Ashikur",
+                        LastName = "Nien",
+                        UserName = "SuperBadBitch",
+                        Email = "ashikurrahman820@gmail.com"
+                    }
+                };
+                foreach(var user in users)
+                {
+                    await userManager.CreateAsync(user,"StrongP@ssw0rd");
+                }
+            }
             // Incomplete
             if (!context.Lawyers.Any())
             {

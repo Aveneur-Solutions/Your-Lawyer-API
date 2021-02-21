@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Models;
+using Domain.Models.User;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.DataContext
 {
-    public class YourLawyerContext : DbContext
+    public class YourLawyerContext : IdentityDbContext<AppUser>
     {
         public YourLawyerContext(DbContextOptions options) : base(options)
         {
@@ -41,22 +43,6 @@ namespace Persistence.DataContext
                      new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Criminal Law" },
                       new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Family Law" }
             );
-
-            /*
-              Banking and Finance Law
-Civil Litigation
-Dispute Resolution
-Commercial Law
-Construction Law
-Consumer Law
-Corporate Law
-Criminal Law
-Employment Law
-Family Law
-Housing Law
-Human Rights Law
- 
-            */
 
         }
     }

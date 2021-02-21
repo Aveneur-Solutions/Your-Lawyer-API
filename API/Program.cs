@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models.User;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +29,10 @@ namespace API
                 try
                 {
                     var context = services.GetRequiredService<YourLawyerContext>();
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     //If any migration has not yet been migrated or no database is there it will solve the issue
                     context.Database.Migrate();
-                    Seed.SeedData(context).Wait();
+                    Seed.SeedData(context,userManager).Wait();
                 }
                 catch (Exception ex)
                 {
