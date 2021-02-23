@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Middleware;
+using Application.Interfaces;
 using Application.LawyerService;
 using Domain.Models.User;
 using FluentValidation.AspNetCore;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,15 +61,17 @@ namespace API
             identityBuilder.AddEntityFrameworkStores<YourLawyerContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
             services.AddAuthentication();
+            services.AddScoped<IJwtGenerator,JwtGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            // }
 
             app.UseHttpsRedirection();
 

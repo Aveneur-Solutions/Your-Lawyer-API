@@ -34,7 +34,7 @@ namespace Persistence.Initialization
                         Email = "ashikurrahman180@gmail.com"
                     },
                      new AppUser{
-                        Id = "a",
+                        Id = "c",
                         FirstName = "Ashikur",
                         LastName = "Nien",
                         UserName = "SuperBadBitch",

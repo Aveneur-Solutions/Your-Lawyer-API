@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using AutoMapper;
 using Domain.DTOs;
 using Domain.Models;
@@ -27,7 +29,7 @@ namespace Application.LawyerService
                 _mapper = mapper;
                 _context = context;
             }
-
+               //01912515592 miraj
             public async Task<LawyerDTO> Handle(Query request, CancellationToken cancellationToken)
             {
                 var lawyer = await _context.Lawyers
@@ -36,6 +38,8 @@ namespace Application.LawyerService
                   .ThenInclude( y => y.AreaOfLaw)
                 .Include(x => x.LawyerEducationalBGs)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
+                
+                if(lawyer == null) throw new RestException(HttpStatusCode.NotFound,new {lawyer="Emon kono lawyer khuje pelum na"});
                 
                 return _mapper.Map<Lawyer,LawyerDTO>(lawyer);
 

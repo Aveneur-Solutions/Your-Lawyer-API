@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using AutoMapper;
 using Domain.DTOs;
 using Domain.Models;
@@ -41,7 +43,7 @@ namespace Application.LawyerService
                 {
                     // Changing case of Division name to ignore case mismatching problem by using ToLower method
                     division = await _context.Divisions.FirstOrDefaultAsync(x => x.Name.ToLower() == request.DivisionName.ToLower());
-                    if (division == null) throw new System.Exception("no Such division exists");
+                    if (division == null) throw new RestException(HttpStatusCode.NotFound,new {division = "no Such division exists"});
                     lawyers = lawyers.Where(x => x.DivisionId == division.Id);
                 }
 

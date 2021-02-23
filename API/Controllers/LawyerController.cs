@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.LawyerService;
 using Domain.DTOs;
-using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
