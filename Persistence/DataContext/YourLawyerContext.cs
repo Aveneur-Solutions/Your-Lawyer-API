@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Models;
+using Domain.Models.Messages;
 using Domain.Models.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,8 @@ namespace Persistence.DataContext
         public DbSet<AreaOfLaw> AreaOfLaws { get; set; }
         public DbSet<LawyerAndAreaOfLaw> LawyerAndAreaOfLaws { get; set; }
         public DbSet<LawyerEducationalBG> LawyerEducationalBGs { get; set; }
+        // public DbSet<QueryText> QueryTexts { get; set; }
+        // public DbSet<QueryFile> QueryFiles { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -43,6 +46,24 @@ namespace Persistence.DataContext
                      new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Criminal Law" },
                       new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Family Law" }
             );
+
+            builder.Entity<QueryMessage>(x => {
+                x.HasOne(x => x.Sender)
+                    .WithMany(x => x.SentQueryTexts)
+                    .HasForeignKey(x => x.Id);
+                
+                x.HasOne(x => x.Sender)
+                    .WithMany(x => x.SentQueryFiles)
+                    .HasForeignKey(x => x.Id);
+
+                x.HasOne(x => x.Receiver)
+                    .WithMany(x => x.ReceivedQueryTexts)
+                    .HasForeignKey(x => x.Id);
+
+                x.HasOne(x => x.Receiver)
+                    .WithMany(x => x.ReceivedQueryFiles)
+                    .HasForeignKey(x => x.Id);
+            });
 
         }
     }
