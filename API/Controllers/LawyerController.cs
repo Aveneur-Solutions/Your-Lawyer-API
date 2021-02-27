@@ -17,7 +17,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
-            Console.WriteLine("Hi");
+            // Console.WriteLine("Hi");
             return await Mediator.Send(new LawyerList.Query());
         }
 

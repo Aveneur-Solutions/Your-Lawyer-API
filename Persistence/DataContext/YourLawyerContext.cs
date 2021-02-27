@@ -31,7 +31,7 @@ namespace Persistence.DataContext
               new Division { Id = Guid.NewGuid(), Name = "Sylhet" },
               new Division { Id = Guid.NewGuid(), Name = "Mymensingh" },
               new Division { Id = Guid.NewGuid(), Name = "Barisal" },
-              new Division { Id = Guid.NewGuid(), Name = "Rangpur " }
+              new Division { Id = Guid.NewGuid(), Name = "Rangpur" }
           );
             builder.Entity<AreaOfLaw>().HasData(
                 new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Banking and Finance Law" },
