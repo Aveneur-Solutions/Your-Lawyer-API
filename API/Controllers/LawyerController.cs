@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.LawyerService;
 using Domain.DTOs;
-using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +17,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
-            Console.WriteLine("Hi");
+            // Console.WriteLine("Hi");
             return await Mediator.Send(new LawyerList.Query());
         }
 
