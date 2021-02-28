@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.LawyerService;
 using Domain.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,6 +15,7 @@ namespace API.Controllers
     {
         [Route("")]
         [Route("api/lawyer")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
@@ -33,10 +35,10 @@ namespace API.Controllers
 
         public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(string divisionName)
         {
-            
+
             return await Mediator.Send(new LawyerListWithParameters.Query { DivisionName = divisionName });
         }
-        
+
         [Route("api/upload")]
         [HttpPost]
         public async Task<ActionResult<Unit>> UploadLawyer(UploadLawyer.Command command)

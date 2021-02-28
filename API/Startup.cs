@@ -24,7 +24,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Persistence.DataContext;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace API
 {
@@ -55,14 +57,44 @@ namespace API
                 cfg.RegisterValidatorsFromAssemblyContaining<UploadLawyer>();
             });
 
-            services.AddCors(opt =>
-       {
-           opt.AddPolicy("CorsPolicy", policy =>
+            services.AddSwaggerGen(swagger =>
            {
-               policy.AllowAnyHeader().AllowAnyMethod().
-               WithOrigins("http://localhost:3000");
-           });
-       });
+               //   c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "Your Lawyer Api", Version = "v1" });
+              swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()  
+                {  
+                    Name = "Authorization",  
+                    Type = SecuritySchemeType.ApiKey,  
+                    Scheme = "Bearer",  
+                    BearerFormat = "JWT",  
+                    In = ParameterLocation.Header,  
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",  
+                });  
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement  
+                {  
+                    {  
+                          new OpenApiSecurityScheme  
+                            {  
+                                Reference = new OpenApiReference  
+                                {  
+                                    Type = ReferenceType.SecurityScheme,  
+                                    Id = "Bearer"  
+                                }  
+                            },  
+                            new string[] {}  
+  
+                    }  
+                }); 
+           }
+
+            );
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().
+                    WithOrigins("http://localhost:3000");
+                });
+            });
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -91,16 +123,27 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+         //   app.UseMiddleware<ErrorHandlingMiddleware>();
             // if (env.IsDevelopment())
             // {
             //     app.UseDeveloperExceptionPage();
             // }
 
-            app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Your Lawyer Api");
+                c.RoutePrefix = string.Empty;
+            }
+                );
 
+
+            app.UseHttpsRedirection();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
             app.UseAuthorization();
 

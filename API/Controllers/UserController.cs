@@ -8,7 +8,7 @@ namespace API.Controllers
 {
     public class UserController : BaseController
     {
-        [Route("user/login")]
+        // [Route("user/login")]
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<ActionResult<UserDTO>> Login(Login.Query query)
