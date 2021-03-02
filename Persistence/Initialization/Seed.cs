@@ -11,11 +11,11 @@ namespace Persistence.Initialization
 {
     public class Seed
     {
-        public static async Task SeedData(YourLawyerContext context,UserManager<AppUser> userManager)
+        public static async Task SeedData(YourLawyerContext context, UserManager<AppUser> userManager)
         {
 
 
-            if(!userManager.Users.Any())
+            if (!userManager.Users.Any())
             {
                 var users = new List<AppUser>
                 {
@@ -26,33 +26,40 @@ namespace Persistence.Initialization
                         UserName = "BadBitch",
                         Email = "ashikurrahman80@gmail.com"
                     },
-                     new AppUser{
+                    new AppUser{
                         Id = "b",
                         FirstName = "Ashikur",
                         LastName = "Enan",
                         UserName = "VeryBadBitch",
                         Email = "ashikurrahman180@gmail.com"
                     },
-                     new AppUser{
+                    new AppUser{
                         Id = "c",
                         FirstName = "Ashikur",
                         LastName = "Nien",
                         UserName = "SuperBadBitch",
                         Email = "ashikurrahman820@gmail.com"
+                    },
+                    new AppUser{
+                        Id = "abcdef",
+                        FirstName = "LegalX",
+                        LastName = "Bhai",
+                        UserName = "legalx",
+                        Email = "legalx420@gmail.com"
                     }
                 };
-                foreach(var user in users)
+                foreach (var user in users)
                 {
-                    await userManager.CreateAsync(user,"StrongP@ssw0rd");
+                    await userManager.CreateAsync(user, "StrongP@ssw0rd");
                 }
             }
             // Incomplete
             if (!context.Lawyers.Any())
             {
                 var division = context.Divisions.FirstOrDefault();
-             //   var lawyerEducationBGs = new List<LawyerEducationalBG>{
+                //   var lawyerEducationBGs = new List<LawyerEducationalBG>{
 
-             //   };
+                //   };
                 var lawyers = new List<Lawyer>
                  {
                      new Lawyer{

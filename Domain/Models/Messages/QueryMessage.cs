@@ -8,10 +8,13 @@ namespace Domain.Models.Messages
         public Guid Id { get; set; }
         public DateTime Time { get; set; }
         public AppUser Sender { get; set; }
+        public string SenderId { get; set; }
         public AppUser Receiver { get; set; }
+        public string ReceiverId { get; set; }
     }
 
     public class QueryText : QueryMessage {
+        
         public string Text { get; set; }
     }
 

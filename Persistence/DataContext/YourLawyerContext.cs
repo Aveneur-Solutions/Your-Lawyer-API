@@ -47,22 +47,26 @@ namespace Persistence.DataContext
                       new AreaOfLaw { Id = Guid.NewGuid(), AreaOfLawName = "Family Law" }
             );
 
-            builder.Entity<QueryMessage>(x => {
+            builder.Entity<QueryText>(x =>
+            {
                 x.HasOne(x => x.Sender)
                     .WithMany(x => x.SentQueryTexts)
-                    .HasForeignKey(x => x.Id);
-                
-                x.HasOne(x => x.Sender)
-                    .WithMany(x => x.SentQueryFiles)
-                    .HasForeignKey(x => x.Id);
+                    .HasForeignKey(x => x.SenderId);
 
                 x.HasOne(x => x.Receiver)
                     .WithMany(x => x.ReceivedQueryTexts)
-                    .HasForeignKey(x => x.Id);
+                    .HasForeignKey(x => x.ReceiverId);
+            });
+
+            builder.Entity<QueryFile>(x =>
+            {
+                x.HasOne(x => x.Sender)
+                    .WithMany(x => x.SentQueryFiles)
+                    .HasForeignKey(x => x.SenderId);
 
                 x.HasOne(x => x.Receiver)
                     .WithMany(x => x.ReceivedQueryFiles)
-                    .HasForeignKey(x => x.Id);
+                    .HasForeignKey(x => x.ReceiverId);
             });
 
         }
