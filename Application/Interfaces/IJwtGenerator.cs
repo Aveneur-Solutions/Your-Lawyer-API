@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Domain.Models.User;
 
 namespace Application.Interfaces
@@ -6,6 +7,8 @@ namespace Application.Interfaces
     {
 
         string CreateToken(AppUser user);
+
+      
 
     }
 }

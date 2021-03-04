@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using API.Middleware;
 using Application.Interfaces;
 using Application.LawyerService;
+using Application.SMSService;
 using Domain.Models.User;
 using FluentValidation.AspNetCore;
 using Infrastructure.Security;
@@ -24,6 +25,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Persistence.DataContext;
 
 namespace API
@@ -54,6 +56,32 @@ namespace API
             {
                 cfg.RegisterValidatorsFromAssemblyContaining<UploadLawyer>();
             });
+               services.AddSwaggerGen( swagger => {
+                        swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()  
+                {  
+                    Name = "Authorization",  
+                    Type = SecuritySchemeType.ApiKey,  
+                    Scheme = "Bearer",  
+                    BearerFormat = "JWT",  
+                    In = ParameterLocation.Header,  
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",  
+                });  
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement  
+                {  
+                    {  
+                          new OpenApiSecurityScheme  
+                            {  
+                                Reference = new OpenApiReference  
+                                {  
+                                    Type = ReferenceType.SecurityScheme,  
+                                    Id = "Bearer"  
+                                }  
+                            },  
+                            new string[] {}  
+  
+                    }  
+                }); 
+               });       
 
             services.AddCors(opt =>
        {
@@ -76,7 +104,7 @@ namespace API
                     ValidateIssuer = false
                 };
             });
-
+          //  services.AddTransient<IAuthMessageSender,AuthMessageSender>();
             services.AddMediatR(typeof(LawyerList.Handler).Assembly);
             services.AddAutoMapper(typeof(LawyerList.Handler));
 
@@ -91,12 +119,18 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+           // app.UseMiddleware<ErrorHandlingMiddleware>();
             // if (env.IsDevelopment())
             // {
             //     app.UseDeveloperExceptionPage();
             // }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Your Lawyer Api");
+                c.RoutePrefix = string.Empty;
+            }
+                );
             app.UseHttpsRedirection();
 
             app.UseRouting();
