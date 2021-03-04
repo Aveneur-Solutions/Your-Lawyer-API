@@ -35,7 +35,7 @@ namespace Application.QueryMessages
 
                 if(user == null) 
                 {
-                    throw new RestException(HttpStatusCode.NotFound, new {user = "Not found"});
+                    throw new RestException(HttpStatusCode.NotFound, new {User = "Not found"});
                 }
 
                 var legalx = await _context.Users.FirstOrDefaultAsync(x => x.UserName == "legalx");
@@ -47,6 +47,14 @@ namespace Application.QueryMessages
                     Receiver = legalx,
                     Text = request.Body
                 };
+
+              //  user.SentQueryTexts.Add(message);
+                await _context.QueryTexts.AddAsync(message);
+                var success = await _context.SaveChangesAsync() > 0;
+
+                if(success) return _mapper.Map<QueryText, QueryTextDTO>(message);
+
+                throw new Exception("Problem saving changes");
             }
         }
     }

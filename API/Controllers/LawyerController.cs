@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.LawyerService;
 using Domain.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -12,12 +13,11 @@ namespace API.Controllers
     [ApiController]
     public class LawyerController : BaseController
     {
-        [Route("")]
         [Route("api/lawyer")]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
-            Console.WriteLine("Hi");
             return await Mediator.Send(new LawyerList.Query());
         }
 

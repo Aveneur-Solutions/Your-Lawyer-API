@@ -19,7 +19,7 @@ namespace Persistence.DataContext
         public DbSet<AreaOfLaw> AreaOfLaws { get; set; }
         public DbSet<LawyerAndAreaOfLaw> LawyerAndAreaOfLaws { get; set; }
         public DbSet<LawyerEducationalBG> LawyerEducationalBGs { get; set; }
-        // public DbSet<QueryText> QueryTexts { get; set; }
+        public DbSet<QueryText> QueryTexts { get; set; }
         // public DbSet<QueryFile> QueryFiles { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

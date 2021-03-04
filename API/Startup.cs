@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using API.Middleware;
+using API.SignalR;
 using Application.Interfaces;
 using Application.LawyerService;
 using Domain.Models.User;
@@ -53,8 +54,8 @@ namespace API
             {
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod()
-                    .WithOrigins("http://localhost:3000");
+                    policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                    
                 });
             });
             services.AddMediatR(typeof(LawyerList.Handler).Assembly);
@@ -76,10 +77,25 @@ namespace API
                     ValidateAudience = false,
                     ValidateIssuer = false
                 };
+                opt.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if(!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/query"))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,7 +107,7 @@ namespace API
             //     app.UseDeveloperExceptionPage();
             // }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -104,6 +120,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<QueryHub>("/query");
             });
         }
     }
