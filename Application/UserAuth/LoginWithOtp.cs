@@ -4,8 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using Application.Interfaces;
-using Application.SMSService;
-using AutoMapper;
 using Domain.DTOs;
 using Domain.Models.User;
 using FluentValidation;
@@ -17,23 +15,23 @@ using Persistence.DataContext;
 
 namespace Application.UserAuth
 {
-    public class Login
+    public class LoginWithOtp
     {
-        public class Command : IRequest
+        public class Query : IRequest<UserDTO>
         {
             public string PhoneNumber { get; set; }
-            public string Password { get; set; }
+            public string Otp { get; set; }
         }
-        public class CommandValidator : AbstractValidator<Command>
+        public class QueryValidator : AbstractValidator<Query>
         {
-            public CommandValidator()
+            public QueryValidator()
             {
                 RuleFor(x => x.PhoneNumber).NotEmpty();
-                RuleFor(x => x.Password).NotEmpty();
+                RuleFor(x => x.Otp).NotEmpty();
             }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Query, UserDTO>
         {
             private readonly SignInManager<AppUser> _signInManager;
             private readonly UserManager<AppUser> _userManager;
@@ -49,30 +47,26 @@ namespace Application.UserAuth
                 _signInManager = signInManager;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<UserDTO> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
+                var user = await _context.Users.FirstOrDefaultAsync( x=> x.PhoneNumber == request.PhoneNumber);
                 if (user == null)
                     throw new RestException(HttpStatusCode.Unauthorized, new { error = "bhung bhang credentials dile dhukte parben na" });
-                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
 
-                if (result.Succeeded)
+                if(!String.IsNullOrEmpty(user.Otp) && user.Otp == request.Otp)
                 {
-                    Random r = new Random();
-                    int randNum = r.Next(1000000);
-                    string sixDigitNumber = randNum.ToString("D6");
-                    await AuthMessageSender.SendSmsAsync(request.PhoneNumber, sixDigitNumber, _configuration);
-                    user.Otp = sixDigitNumber;
+                    user.Otp = null;
                     await _userManager.UpdateAsync(user);
-                    // return new UserDTO
-                    // {
-                    //     UserName = user.UserName,
-                    //     Email = user.Email,
-                    //     Token = _jwtGenerator.CreateToken(user)
-                    // };
-                     return Unit.Value;
+                  return new UserDTO
+                    {
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        Token = _jwtGenerator.CreateToken(user)
+                    };
                 }
+                else throw new RestException(HttpStatusCode.Unauthorized, new { error = "Faizlami Koren mia" });
+                
                 throw new RestException(HttpStatusCode.Unauthorized, new { error = "bhung bhang credentials dile dhukte parben na" });
             }
         }
