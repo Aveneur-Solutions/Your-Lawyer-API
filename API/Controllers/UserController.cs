@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Application.UserAuth;
 using Domain.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,13 @@ namespace API.Controllers
        // [Route("user/login")]
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<UserDTO>> Login(Login.Query query)
+        public async Task<ActionResult<Unit>> Login(Login.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpPost("loginWithOtp")]
+        [AllowAnonymous]
+        public async Task<ActionResult<UserDTO>> LoginWithOtp(LoginWithOtp.Query query)
         {
             return await Mediator.Send(query);
         }

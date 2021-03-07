@@ -27,12 +27,13 @@ namespace Application.SMSService
             var accountSid = configuration["SMSAccountIdentification"];
             // Your Auth Token from twilio.com/console
             var authToken = configuration["SMSAccountPassword"];
+            var fromNumber = configuration["SMSAccountFrom"];
 
             TwilioClient.Init(accountSid, authToken);
 
             return MessageResource.CreateAsync(
               to: new PhoneNumber(number),
-              from: new PhoneNumber(configuration["SMSAccountForm"]),
+              from: new PhoneNumber(fromNumber),
               body: message);
         }
     }

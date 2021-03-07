@@ -21,24 +21,31 @@ namespace Persistence.Initialization
                 {
                     new AppUser{
                         Id = "a",
-                        FirstName = "Ashikur",
-                        LastName = "Rahman",
-                        UserName = "BadBitch",
-                        Email = "ashikurrahman80@gmail.com"
+                        FirstName = "Zulker",
+                        LastName = "Nien",
+                        UserName = "PervySage",
+                        PhoneNumber = "+8801717755244",
                     },
                      new AppUser{
                         Id = "b",
-                        FirstName = "Ashikur",
-                        LastName = "Enan",
-                        UserName = "VeryBadBitch",
-                        Email = "ashikurrahman180@gmail.com"
+                        FirstName = "Ragib",
+                        LastName = "Ibne Hossain",
+                        UserName = "Insaiyan",
+                        PhoneNumber = "+8801680800602"
                     },
                      new AppUser{
                         Id = "c",
-                        FirstName = "Ashikur",
-                        LastName = "Nien",
-                        UserName = "SuperBadBitch",
-                        Email = "ashikurrahman820@gmail.com"
+                        FirstName = "Wasif",
+                        LastName = "M.Chowdhury",
+                        UserName = "CEO",
+                        PhoneNumber = "+8801716590911",
+                    },
+                         new AppUser{
+                        Id = "d",
+                        FirstName = "Muiz",
+                        LastName = "Shahabuddin",
+                        UserName = "Maharaja",
+                        PhoneNumber = "+8801517111997",
                     }
                 };
                 foreach(var user in users)
@@ -117,6 +124,7 @@ namespace Persistence.Initialization
                          }
                          }
                      };
+                     
                 await context.Lawyers.AddRangeAsync(lawyers);
                 await context.SaveChangesAsync();
             }
