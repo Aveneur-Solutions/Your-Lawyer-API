@@ -46,6 +46,13 @@ namespace Persistence.Initialization
                         LastName = "Shahabuddin",
                         UserName = "Maharaja",
                         PhoneNumber = "+8801517111997",
+                    },
+                    new AppUser{
+                        Id = "e",
+                        FirstName = "Obama",
+                        LastName = "Laden",
+                        UserName = "ObamaBinLaden",
+                        PhoneNumber = "+8801991700182",
                     }
                 };
                 foreach(var user in users)

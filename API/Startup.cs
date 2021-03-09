@@ -88,7 +88,7 @@ namespace API
            opt.AddPolicy("CorsPolicy", policy =>
            {
                policy.AllowAnyHeader().AllowAnyMethod().
-               WithOrigins("http://localhost:3000");
+               WithOrigins("http://localhost:63146");
            });
        });
 
@@ -131,7 +131,7 @@ namespace API
                 c.RoutePrefix = string.Empty;
             }
                 );
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
