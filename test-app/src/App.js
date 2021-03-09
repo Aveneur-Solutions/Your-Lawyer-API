@@ -4,7 +4,7 @@ import agent from "./agent";
 import { messages, sendMessage, createConnection, stopConnection } from "./message";
 
 function App() {
-  const [messages, setMessages] = useState([]);
+  const [amarMessages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
   const onChangeHandler = (e) => {
@@ -14,6 +14,7 @@ function App() {
 
   useEffect(() => {
     createConnection()
+    setMessages(messages)
     return () => {
       stopConnection()
     }
@@ -29,7 +30,7 @@ function App() {
         <button type="submit">Message pathau</button>
       </form>
 
-      {messages.map((message) => (
+      {amarMessages.map((message) => (
         <p>{message.body}</p>
       ))}
     </div>

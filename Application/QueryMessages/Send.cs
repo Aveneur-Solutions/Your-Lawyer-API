@@ -49,7 +49,7 @@ namespace Application.QueryMessages
                 };
 
               //  user.SentQueryTexts.Add(message);
-                await _context.QueryTexts.AddAsync(message);
+                await _context.QueryText.AddAsync(message);
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if(success) return _mapper.Map<QueryText, QueryTextDTO>(message);
