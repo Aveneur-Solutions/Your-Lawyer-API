@@ -20,7 +20,7 @@ namespace Persistence.Initialization
                 var users = new List<AppUser>
                 {
                     new AppUser{
-                        Id = "a",
+                      
                         FirstName = "Zulker",
                         LastName = "Nien",
                         UserName = "PervySage",
@@ -28,7 +28,7 @@ namespace Persistence.Initialization
                         PhoneNumberConfirmed = true
                     },
                      new AppUser{
-                        Id = "b",
+                      
                         FirstName = "Ragib",
                         LastName = "Ibne Hossain",
                         UserName = "Insaiyan",
@@ -36,7 +36,7 @@ namespace Persistence.Initialization
                         PhoneNumberConfirmed = true
                     },
                      new AppUser{
-                        Id = "c",
+                      
                         FirstName = "Wasif",
                         LastName = "M.Chowdhury",
                         UserName = "CEO",
@@ -44,7 +44,7 @@ namespace Persistence.Initialization
                         PhoneNumberConfirmed = true
                     },
                          new AppUser{
-                        Id = "d",
+                  
                         FirstName = "Muiz",
                         LastName = "Shahabuddin",
                         UserName = "Maharaja",

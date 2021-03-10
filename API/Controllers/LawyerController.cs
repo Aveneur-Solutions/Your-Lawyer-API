@@ -12,8 +12,7 @@ namespace API.Controllers
     [ApiController]
     public class LawyerController : BaseController
     {
-        [Route("")]
-        [Route("api/lawyer")]
+        
         [HttpGet]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
@@ -22,22 +21,20 @@ namespace API.Controllers
         }
 
 
-        [Route("api/lawyer/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<LawyerDTO>> LawyerDetails(Guid id)
         {
             return await Mediator.Send(new LawyerDetails.Query { Id = id });
         }
-        [Route("api/searchlawyers/{divisionName}")]
-        [HttpGet]
+   
+        [HttpGet("params")]
 
-        public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(string divisionName)
+        public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(LawyerListWithParameters.Query query)
         {
             
-            return await Mediator.Send(new LawyerListWithParameters.Query { DivisionName = divisionName });
+            return await Mediator.Send(query);
         }
-        
-        [Route("api/upload")]
+
         [HttpPost]
         public async Task<ActionResult<Unit>> UploadLawyer(UploadLawyer.Command command)
         {
