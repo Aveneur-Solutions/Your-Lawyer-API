@@ -6,8 +6,6 @@ using Application.Errors;
 using Application.Helper;
 using Application.Interfaces;
 using Application.SMSService;
-using AutoMapper;
-using Domain.DTOs;
 using Domain.Models.User;
 using FluentValidation;
 using MediatR;
@@ -18,10 +16,13 @@ using Persistence.DataContext;
 
 namespace Application.UserAuth
 {
-    public class Login
+    public class Register
     {
+
         public class Command : IRequest
         {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
             public string PhoneNumber { get; set; }
             public string Password { get; set; }
         }
@@ -29,6 +30,8 @@ namespace Application.UserAuth
         {
             public CommandValidator()
             {
+                RuleFor(x => x.FirstName).NotEmpty();
+                RuleFor(x => x.LastName).NotEmpty();
                 RuleFor(x => x.PhoneNumber).NotEmpty();
                 RuleFor(x => x.Password).NotEmpty();
             }
@@ -53,27 +56,34 @@ namespace Application.UserAuth
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
-                if (user == null)
-                    throw new RestException(HttpStatusCode.Unauthorized, new { error = "bhung bhang credentials dile dhukte parben na" });
-                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
-
-                if (result.Succeeded)
+                try
                 {
-                  
-                    string sixDigitNumber = RandomDigitGenerator.SixDigitNumber(); // implemented in helper folder 
-                    await AuthMessageSender.SendSmsAsync(request.PhoneNumber, sixDigitNumber, _configuration);
-                    user.Otp = sixDigitNumber;
-                    await _userManager.UpdateAsync(user);
-                    // return new UserDTO
-                    // {
-                    //     UserName = user.UserName,
-                    //     Email = user.Email,
-                    //     Token = _jwtGenerator.CreateToken(user)
-                    // };
-                     return Unit.Value;
+                    if (user == null)
+                    {
+                        user = new AppUser
+                        {
+                            FirstName = request.FirstName,
+                            LastName = request.LastName,
+                            PhoneNumber = request.PhoneNumber,
+                            UserName = request.FirstName
+                        };
+                        string sixDigitNumber = RandomDigitGenerator.SixDigitNumber();
+                        user.Otp = sixDigitNumber;
+                        await AuthMessageSender.SendSmsAsync(request.PhoneNumber, sixDigitNumber, _configuration);
+                        await _userManager.CreateAsync(user, request.Password);
+                        return Unit.Value;
+                    }
+                    else throw new RestException(HttpStatusCode.Conflict, new { error = "a user already exists with this number" });
                 }
-                throw new RestException(HttpStatusCode.Unauthorized, new { error = "bhung bhang credentials dile dhukte parben na" });
+                catch (Exception e)
+                {
+                    throw e;
+                }
+
+                throw new RestException(HttpStatusCode.Unauthorized, new { error = "Kichu ekta to jhamela korsen e naile ei line execute howar kotha na" });
+
+
             }
         }
     }

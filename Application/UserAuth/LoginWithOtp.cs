@@ -58,7 +58,7 @@ namespace Application.UserAuth
                 {
                     user.Otp = null;
                     await _userManager.UpdateAsync(user);
-                  return new UserDTO
+                    return new UserDTO
                     {
                         UserName = user.UserName,
                         Email = user.Email,

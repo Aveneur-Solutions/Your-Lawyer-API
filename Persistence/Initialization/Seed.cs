@@ -25,13 +25,15 @@ namespace Persistence.Initialization
                         LastName = "Nien",
                         UserName = "PervySage",
                         PhoneNumber = "+8801717755244",
+                        PhoneNumberConfirmed = true
                     },
                      new AppUser{
                         Id = "b",
                         FirstName = "Ragib",
                         LastName = "Ibne Hossain",
                         UserName = "Insaiyan",
-                        PhoneNumber = "+8801680800602"
+                        PhoneNumber = "+8801680800602",
+                        PhoneNumberConfirmed = true
                     },
                      new AppUser{
                         Id = "c",
@@ -39,6 +41,7 @@ namespace Persistence.Initialization
                         LastName = "M.Chowdhury",
                         UserName = "CEO",
                         PhoneNumber = "+8801716590911",
+                        PhoneNumberConfirmed = true
                     },
                          new AppUser{
                         Id = "d",
