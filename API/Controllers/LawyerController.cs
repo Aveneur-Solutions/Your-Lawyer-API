@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.LawyerService;
 using Domain.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -38,6 +39,14 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Unit>> UploadLawyer(UploadLawyer.Command command)
         {
+            return await Mediator.Send(command);
+        }
+
+         [HttpPut("{id}")]
+         [AllowAnonymous]
+        public async Task<ActionResult<Unit>> UpdateLawyer(Guid id,UpdateLawyer.Command command)
+        {
+            command.Id = id;
             return await Mediator.Send(command);
         }
 

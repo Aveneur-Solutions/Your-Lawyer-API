@@ -45,6 +45,7 @@ namespace API
             services.AddDbContext<YourLawyerContext>(opt =>
             {
                 //  opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                //Data Source=173.82.103.99,8433;Initial Catalog=yourlawyerdb;User ID=admin;Password=Test2020;Trusted_Connection=False;
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection"));
             });
 
@@ -122,7 +123,7 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             // if (env.IsDevelopment())
             // {
             //     app.UseDeveloperExceptionPage();
@@ -133,14 +134,13 @@ namespace API
                 c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Your Lawyer Api");
                 c.RoutePrefix = string.Empty;
             }
-                );
+            );
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
