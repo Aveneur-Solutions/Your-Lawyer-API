@@ -15,7 +15,7 @@ namespace API.SignalR
             _mediator = mediator;
         }
 
-        public async Task SendQueryText(string body)
+        public async Task SendQueryTextToLegalx(string body)
         {
             var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
@@ -23,7 +23,7 @@ namespace API.SignalR
 
             var message = await _mediator.Send(new Send.Command { Body = body, UserName = username });
 
-            await Clients.All.SendAsync("ReceiveMessage", message);
+            await Clients.All.SendAsync("ReceiveQueryTexts", message);
         }
     }
 }

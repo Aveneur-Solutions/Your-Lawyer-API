@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Application.UserAuth;
 using Domain.DTOs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -15,7 +14,7 @@ namespace API.Controllers
             return await Mediator.Send(query);
         }
 
-        [Route("user")]
+        [Route("api/user")]
         [HttpGet]
         public async Task<ActionResult<UserDTO>> CurrentUser()
         {

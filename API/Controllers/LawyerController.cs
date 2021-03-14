@@ -15,7 +15,6 @@ namespace API.Controllers
     {
         [Route("api/lawyer")]
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
             return await Mediator.Send(new LawyerList.Query());
