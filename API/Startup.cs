@@ -46,6 +46,7 @@ namespace API
             {
                 //  opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
                 //Data Source=173.82.103.99,8433;Initial Catalog=yourlawyerdb;User ID=admin;Password=Test2020;Trusted_Connection=False;
+                //server=(localdb)\\MSSQLLocalDB;database=YourLawyerDB,Trusted_Connection=true
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection"));
             });
 

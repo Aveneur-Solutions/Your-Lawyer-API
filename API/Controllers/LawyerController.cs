@@ -28,12 +28,11 @@ namespace API.Controllers
             return await Mediator.Send(new LawyerDetails.Query { Id = id });
         }
    
-        [HttpGet("params")]
+        [HttpGet("division/{divisionName}")]
 
-        public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(LawyerListWithParameters.Query query)
+        public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(string divisionName)
         {
-            
-            return await Mediator.Send(query);
+            return await Mediator.Send(new LawyerListWithParameters.Query {DivisionName = divisionName});
         }
 
         [HttpPost]
@@ -41,14 +40,26 @@ namespace API.Controllers
         {
             return await Mediator.Send(command);
         }
-
-         [HttpPut("{id}")]
-         [AllowAnonymous]
-        public async Task<ActionResult<Unit>> UpdateLawyer(Guid id,UpdateLawyer.Command command)
+        [HttpDelete]
+        //For testing purpose its anonymous
+        public async Task<ActionResult<Unit>> DeleteLawyer(DeleteLawyer.Command command)
         {
-            command.Id = id;
             return await Mediator.Send(command);
         }
+        [HttpDelete("deletemultiple")]
+         //For testing purpose its anonymous
+        public async Task<ActionResult<Unit>> DeleteMultipleLawyers(DeleteMultipleLawyers.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+
+        //  [HttpPut("{id}")]
+        //  [AllowAnonymous]
+        // public async Task<ActionResult<Unit>> UpdateLawyer(Guid id,UpdateLawyer.Command command)
+        // {
+        //     command.Id = id;
+        //     return await Mediator.Send(command);
+        // }
 
     }
 }
