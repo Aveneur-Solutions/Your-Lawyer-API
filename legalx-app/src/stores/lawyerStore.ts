@@ -18,7 +18,6 @@ class LawyerStore {
     makeObservable(this);
   }
 
-  @observable lawyers: any[] = [];
   @observable user: any = null;
   @observable sentQueryTexts: any[] = [];
   @observable receivedQueryTexts: any[] = [];
@@ -73,14 +72,6 @@ class LawyerStore {
     this.hubConnection?.stop();
   };
 
-  // @action sendQueryText = async (values: any) => {
-  //   let id = this.user.userName + "abcdef";
-  //   try {
-  //     await this.hubConnection?.invoke("SendQueryTextToLegalx", values);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   @action sendQueryText = async (values: any) => {
     try {
       if (this.user.userName === "legalx") {
@@ -92,17 +83,6 @@ class LawyerStore {
       } else {
         await this.hubConnection?.invoke("SendQueryTextToLegalx", values);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  @action listLawyers = async () => {
-    try {
-      const amarLawyers = await agent.Lawyer.list();
-      runInAction(() => {
-        this.lawyers = amarLawyers;
-      });
     } catch (error) {
       console.log(error);
     }

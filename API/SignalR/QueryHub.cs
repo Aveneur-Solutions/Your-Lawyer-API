@@ -19,11 +19,30 @@ namespace API.SignalR
         {
             var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            // command.UserName = username;
+            var id = username + "abcdef";
 
-            var message = await _mediator.Send(new Send.Command { Body = body, UserName = username });
+            var message = await _mediator.Send(new SendToLegalx.Command { Body = body, UserName = username });
 
-            await Clients.All.SendAsync("ReceiveQueryTexts", message);
+            await Clients.Group(id).SendAsync("ReceiveQueryTexts", message);
+        }
+
+        public async Task SendQueryTextToUser(string body, string userName)
+        {
+            var id = userName + "abcdef";
+
+            var message = await _mediator.Send(new SendToUser.Command { Body = body, UserName = userName });
+
+            await Clients.Group(id).SendAsync("ReceiveQueryTexts", message);
+        }
+
+        public async Task ConnectToLegalx(string id)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, id);
+        }
+
+        public async Task ConnectToUser(string id)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, id);
         }
     }
 }

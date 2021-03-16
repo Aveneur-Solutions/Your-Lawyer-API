@@ -12,7 +12,7 @@ using Persistence.DataContext;
 
 namespace Application.QueryMessages
 {
-    public class Send
+    public class SendToLegalx
     {
         public class Command : IRequest<QueryTextDTO>
         {
