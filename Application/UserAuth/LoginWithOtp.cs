@@ -60,8 +60,8 @@ namespace Application.UserAuth
                     await _userManager.UpdateAsync(user);
                     return new UserDTO
                     {
-                        UserName = user.UserName,
-                        Email = user.Email,
+                        FullName = user.FirstName+" "+user.LastName,
+                        PhoneNumber = user.PhoneNumber,
                         Token = _jwtGenerator.CreateToken(user)
                     };
                 }

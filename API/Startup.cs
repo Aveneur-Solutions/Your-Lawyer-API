@@ -44,7 +44,10 @@ namespace API
         {
             services.AddDbContext<YourLawyerContext>(opt =>
             {
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                //  opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                //Data Source=173.82.103.99,8433;Initial Catalog=yourlawyerdb;User ID=admin;Password=Test2020;Trusted_Connection=False;
+                //server=(localdb)\\MSSQLLocalDB;database=YourLawyerDB,Trusted_Connection=true
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection"));
             });
 
             services.AddControllers(opt =>
@@ -56,32 +59,34 @@ namespace API
             {
                 cfg.RegisterValidatorsFromAssemblyContaining<UploadLawyer>();
             });
-               services.AddSwaggerGen( swagger => {
-                        swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()  
-                {  
-                    Name = "Authorization",  
-                    Type = SecuritySchemeType.ApiKey,  
-                    Scheme = "Bearer",  
-                    BearerFormat = "JWT",  
-                    In = ParameterLocation.Header,  
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",  
-                });  
-                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement  
-                {  
-                    {  
-                          new OpenApiSecurityScheme  
-                            {  
-                                Reference = new OpenApiReference  
-                                {  
-                                    Type = ReferenceType.SecurityScheme,  
-                                    Id = "Bearer"  
-                                }  
-                            },  
-                            new string[] {}  
-  
-                    }  
-                }); 
-               });       
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.CustomSchemaIds(type => type.ToString()); // this line solves the schema Conflict problem 
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                });
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+
+                    }
+                });
+            });
 
             services.AddCors(opt =>
        {
@@ -104,7 +109,7 @@ namespace API
                     ValidateIssuer = false
                 };
             });
-          //  services.AddTransient<IAuthMessageSender,AuthMessageSender>();
+            //  services.AddTransient<IAuthMessageSender,AuthMessageSender>();
             services.AddMediatR(typeof(LawyerList.Handler).Assembly);
             services.AddAutoMapper(typeof(LawyerList.Handler));
 
@@ -119,7 +124,7 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             // if (env.IsDevelopment())
             // {
             //     app.UseDeveloperExceptionPage();
@@ -130,14 +135,13 @@ namespace API
                 c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Your Lawyer Api");
                 c.RoutePrefix = string.Empty;
             }
-                );
+            );
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

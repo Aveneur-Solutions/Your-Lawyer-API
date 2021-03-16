@@ -8,5 +8,6 @@ namespace Domain.Models.User
         public string LastName { get; set; }
         public string Otp { get; set; }
         
+        
     }
 }

@@ -62,7 +62,8 @@ namespace Application.UserAuth
                         return new UserDTO
                         {
                             Token = _jwtGenerator.CreateToken(user),
-                            UserName = user.FirstName                          
+                            FullName = user.FirstName+" "+user.LastName ,
+                            PhoneNumber= user.PhoneNumber                         
                         };
                     }
                 }
