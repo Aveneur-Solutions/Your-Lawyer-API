@@ -20,7 +20,7 @@ namespace Persistence.DataContext
         public DbSet<LawyerAndAreaOfLaw> LawyerAndAreaOfLaws { get; set; }
         public DbSet<LawyerEducationalBG> LawyerEducationalBGs { get; set; }
         public DbSet<QueryText> QueryText { get; set; }
-        // public DbSet<QueryFile> QueryFiles { get; set; }
+        public DbSet<QueryFile> QueryFile { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -58,16 +58,16 @@ namespace Persistence.DataContext
                     .HasForeignKey(x => x.ReceiverId);
             });
 
-            // builder.Entity<QueryFile>(x =>
-            // {
-            //     x.HasOne(x => x.Sender)
-            //         .WithMany(x => x.SentQueryFiles)
-            //         .HasForeignKey(x => x.SenderId);
+            builder.Entity<QueryFile>(x =>
+            {
+                x.HasOne(x => x.Sender)
+                    .WithMany(x => x.SentQueryFiles)
+                    .HasForeignKey(x => x.SenderId);
 
-            //     x.HasOne(x => x.Receiver)
-            //         .WithMany(x => x.ReceivedQueryFiles)
-            //         .HasForeignKey(x => x.ReceiverId);
-            // });
+                x.HasOne(x => x.Receiver)
+                    .WithMany(x => x.ReceivedQueryFiles)
+                    .HasForeignKey(x => x.ReceiverId);
+            });
 
         }
     }

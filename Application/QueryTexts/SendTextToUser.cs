@@ -10,9 +10,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataContext;
 
-namespace Application.QueryMessages
+namespace Application.QueryTexts
 {
-    public class SendToUser
+    public class SendTextToUser
     {
         public class Command : IRequest<QueryTextDTO>
         {

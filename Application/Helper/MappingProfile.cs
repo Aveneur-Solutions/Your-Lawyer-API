@@ -17,8 +17,9 @@ namespace Application.Helper
             CreateMap<QueryText, QueryTextDTO>()
                 .ForMember(x => x.SenderName, o => o.MapFrom(s => s.Sender.FirstName))
                 .ForMember(x => x.ReceiverName, o => o.MapFrom(s => s.Receiver.FirstName));
-            CreateMap<QueryFile, QueryFileDTO>().ForMember(x => x.SenderName, o => o.MapFrom(s => s.Sender.FirstName))
-            .ForMember(x => x.ReceiverName, o => o.MapFrom(s => s.Receiver.FirstName));
+            CreateMap<QueryFile, QueryFileDTO>()
+                .ForMember(x => x.SenderName, o => o.MapFrom(s => s.Sender.FirstName))
+                .ForMember(x => x.ReceiverName, o => o.MapFrom(s => s.Receiver.FirstName));
         }
     }
 }

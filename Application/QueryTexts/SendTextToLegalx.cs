@@ -10,9 +10,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataContext;
 
-namespace Application.QueryMessages
+namespace Application.QueryTexts
 {
-    public class SendToLegalx
+    public class SendTextToLegalx
     {
         public class Command : IRequest<QueryTextDTO>
         {
