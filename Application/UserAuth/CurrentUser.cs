@@ -36,15 +36,21 @@ namespace Application.UserAuth
                     .Include(x => x.SentQueryTexts)
                         .ThenInclude(x => x.Receiver)
                     .Include(x => x.ReceivedQueryTexts)
+                    .Include(x => x.SentQueryFiles)
+                    // .ThenInclude(x => x.Receiver)
+                    .Include(x => x.ReceivedQueryFiles)
+                    // .ThenInclude(x => x.Sender)
                     .FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetCurrentUsername());
-                
+
                 var user = new UserDTO
                 {
                     UserName = currentUser.UserName,
                     Email = currentUser.Email,
                     Token = _jwtGenerator.CreateToken(currentUser),
                     SentQueryTexts = _mapper.Map<ICollection<QueryText>, List<QueryTextDTO>>(currentUser.SentQueryTexts),
-                    ReceivedQueryTexts = _mapper.Map<ICollection<QueryText>, List<QueryTextDTO>>(currentUser.ReceivedQueryTexts)
+                    ReceivedQueryTexts = _mapper.Map<ICollection<QueryText>, List<QueryTextDTO>>(currentUser.ReceivedQueryTexts),
+                    SentQueryFiles = _mapper.Map<ICollection<QueryFile>, List<QueryFileDTO>>(currentUser.SentQueryFiles),
+                    ReceivedQueryFiles = _mapper.Map<ICollection<QueryFile>, List<QueryFileDTO>>(currentUser.ReceivedQueryFiles)
                 };
 
                 return user;

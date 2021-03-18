@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.QueryFiles;
 using Application.QueryTexts;
+using Domain.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
@@ -28,15 +29,15 @@ namespace API.SignalR
             await Clients.Group(id).SendAsync("ReceiveQueryTexts", message);
         }
 
-        public async Task SendQueryFileToLegalx(IFormFile file)
+        public async Task SendQueryFileToLegalx(QueryFileDTO file)
         {
             var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
             var id = username + "abcdef";
 
-            var message = await _mediator.Send(new SendFileToLegalx.Command { File = file, UserName = username });
+            // var message = await _mediator.Send(new SendFileToLegalx.Command { File = file, UserName = username });
 
-            await Clients.Group(id).SendAsync("ReceiveQueryFiles", message);
+            await Clients.Group(id).SendAsync("ReceiveQueryFiles", file);
         }
 
         public async Task SendQueryTextToUser(string body, string userName)
@@ -48,13 +49,13 @@ namespace API.SignalR
             await Clients.Group(id).SendAsync("ReceiveQueryTexts", message);
         }
 
-        public async Task SendQueryFileToUser(IFormFile file, string userName)
+        public async Task SendQueryFileToUser(QueryFileDTO file, string userName)
         {
             var id = userName + "abcdef";
 
-            var message = await _mediator.Send(new SendFileToUser.Command { File = file, UserName = userName });
+            // var message = await _mediator.Send(new SendFileToUser.Command { File = file, UserName = userName });
 
-            await Clients.Group(id).SendAsync("ReceiveQueryFiles", message);
+            await Clients.Group(id).SendAsync("ReceiveQueryFiles", file);
         }
 
         public async Task ConnectToLegalx(string id)

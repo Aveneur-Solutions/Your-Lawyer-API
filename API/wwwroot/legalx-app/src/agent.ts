@@ -13,7 +13,6 @@ axios.interceptors.request.use(
   }
 );
 
-
 const responseBody = (response: AxiosResponse) => response.data;
 
 const request = {
@@ -21,6 +20,25 @@ const request = {
   post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
   put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
   del: (url: string) => axios.delete(url).then(responseBody),
+  postFile: (url: string, file: Blob) => {
+    let formData = new FormData();
+    formData.append("File", file);
+    return axios
+      .post(url, formData, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then(responseBody);
+  },
+  postFileToUser: (url: string, userName: string, file: Blob) => {
+    let formData = new FormData();
+    formData.append("UserName", userName);
+    formData.append("File", file);
+    return axios
+      .post(url, formData, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then(responseBody);
+  },
 };
 
 const Lawyer = {
@@ -28,7 +46,13 @@ const Lawyer = {
 };
 
 const User = {
-  getUser: (): Promise<any> => request.get("/user")
-}
+  getUser: (): Promise<any> => request.get("/user"),
+};
 
-export default { Lawyer, User };
+const Message = {
+  fileUpload: (file: Blob) => request.postFile("/file", file),
+  fileUploadToUser: (userName: string, file: Blob) =>
+    request.postFileToUser("/filex", userName, file),
+};
+
+export default { Lawyer, User, Message };

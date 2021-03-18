@@ -22,14 +22,22 @@ class LawyerStore {
   @observable user: any = null;
   @observable sentQueryTexts: any[] = [];
   @observable receivedQueryTexts: any[] = [];
+  @observable sentQueryFiles: any[] = [];
+  @observable receivedQueryFiles: any[] = [];
   @observable.ref hubConnection: HubConnection | null = null;
 
   @computed get messagesByDate() {
     let messages = [];
     if (this.user) {
-      let sent = this.user.sentQueryTexts.slice();
-      let received = this.user.receivedQueryTexts.slice();
-      messages = sent.concat(received);
+      let texts = [];
+      let files = [];
+      let sentTexts = this.user.sentQueryTexts.slice();
+      let receivedTexts = this.user.receivedQueryTexts.slice();
+      texts = sentTexts.concat(receivedTexts);
+      let sentFiles = this.user.sentQueryFiles.slice();
+      let receivedFiles = this.user.receivedQueryFiles.slice();
+      files = sentFiles.concat(receivedFiles);
+      messages = texts.concat(files);
     }
     messages = messages.sort(
       (a: any, b: any) => Date.parse(a.time) - Date.parse(b.time)
@@ -67,6 +75,10 @@ class LawyerStore {
     this.hubConnection.on("ReceiveQueryTexts", (message) => {
       this.user!.sentQueryTexts.push(message);
     });
+
+    this.hubConnection.on("ReceiveQueryFiles", (file) => {
+      this.user!.sentQueryFiles.push(file);
+    });
   };
 
   @action stopHubConnection = () => {
@@ -97,6 +109,22 @@ class LawyerStore {
     }
   };
 
+  @action sendQueryFile = async (file: Blob) => {
+    try {
+      const formData = new FormData();
+      formData.append("File", file);
+      if (this.user.userName === "legalx") {
+        const message = await agent.Message.fileUploadToUser("VeryBadBitch", file);
+        await this.hubConnection?.invoke("SendQueryFileToUser", message, "VeryBadBitch")
+      } else {
+        const message = await agent.Message.fileUpload(file);
+        await this.hubConnection?.invoke("SendQueryFileToLegalx", message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   @action listLawyers = async () => {
     try {
       const amarLawyers = await agent.Lawyer.list();
@@ -115,6 +143,8 @@ class LawyerStore {
         this.user = user;
         this.sentQueryTexts = user.sentQueryTexts;
         this.receivedQueryTexts = user.receivedQueryTexts;
+        this.sentQueryFiles = user.sentQueryFiles;
+        this.receivedQueryFiles = user.receivedQueryFiles;
       });
     } catch (error) {
       console.log(error);
