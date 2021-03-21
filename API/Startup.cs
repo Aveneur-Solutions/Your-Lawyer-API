@@ -7,6 +7,7 @@ using API.Middleware;
 using API.SignalR;
 using Application.Interfaces;
 using Application.LawyerService;
+using Application.SMSService;
 using Domain.Models.User;
 using FluentValidation.AspNetCore;
 using Infrastructure.Security;
@@ -44,6 +45,9 @@ namespace API
         {
             services.AddDbContext<YourLawyerContext>(opt =>
             {
+                //opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                //Data Source=173.82.103.99,8433;Initial Catalog=yourlawyerdb;User ID=admin;Password=Test2020;Trusted_Connection=False;
+                //server=(localdb)\\MSSQLLocalDB;database=YourLawyerDB,Trusted_Connection=true
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection"));
             });
 
@@ -93,6 +97,8 @@ namespace API
                     
                 });
             });
+
+            //  services.AddTransient<IAuthMessageSender,AuthMessageSender>();
             services.AddMediatR(typeof(LawyerList.Handler).Assembly);
             services.AddAutoMapper(typeof(LawyerList.Handler));
 
@@ -131,16 +137,13 @@ namespace API
             services.AddScoped<IUserAccessor, UserAccessor>();
 
             services.AddSignalR();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            // }
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -149,16 +152,16 @@ namespace API
             }
             );
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
-
+          
             app.UseAuthorization();
-
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -13,7 +13,6 @@ namespace API.Controllers
     [ApiController]
     public class LawyerController : BaseController
     {
-
         [HttpGet]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
@@ -31,8 +30,7 @@ namespace API.Controllers
 
         public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(string divisionName)
         {
-            
-            return await Mediator.Send(new LawyerListWithParameters.Query { DivisionName = divisionName });
+            return await Mediator.Send(new LawyerListWithParameters.Query {DivisionName = divisionName});
         }
 
         [HttpPost]
@@ -40,20 +38,17 @@ namespace API.Controllers
         {
             return await Mediator.Send(command);
         }
+        
         [HttpDelete]
-        //For testing purpose its anonymous
         public async Task<ActionResult<Unit>> DeleteLawyer(DeleteLawyer.Command command)
         {
             return await Mediator.Send(command);
         }
+        
         [HttpDelete("deletemultiple")]
-         //For testing purpose its anonymous
         public async Task<ActionResult<Unit>> DeleteMultipleLawyers(DeleteMultipleLawyers.Command command)
         {
             return await Mediator.Send(command);
         }
-        
-        
-
     }
 }

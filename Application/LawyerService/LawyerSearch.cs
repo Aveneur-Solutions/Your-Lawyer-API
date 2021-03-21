@@ -19,7 +19,7 @@ namespace Application.LawyerService
         public class Query : IRequest<List<LawyerDTO>>
         {
             public string DivisionName { get; set; }
-            public string AreaOfLawName { get; set; }
+
         }
 
         public class Handler : IRequestHandler<Query, List<LawyerDTO>>
@@ -44,21 +44,16 @@ namespace Application.LawyerService
                     // Changing case of Division name to ignore case mismatching problem by using ToLower method
                     division = await _context.Divisions.FirstOrDefaultAsync(x => x.Name.ToLower() == request.DivisionName.ToLower());
                     if (division == null) throw new RestException(HttpStatusCode.NotFound,new {division = "no Such division exists"});
-                    lawyers = lawyers.Where(x => x.DivisionId == division.Id);
+                    lawyers = lawyers.Where(x =>( x.DivisionId == division.Id ));
                 }
-
                 var Lawyers = await lawyers.
                 Include(x => x.Division).
                 Include(x => x.LawyersAreaOfLaws)
                  .ThenInclude(y => y.AreaOfLaw)
                 .Include(x => x.LawyerEducationalBGs)
                 .ToListAsync();
-
-                //Console.WriteLine(DivisionList.Divisions[2]);
-
                 return _mapper.Map<List<Lawyer>, List<LawyerDTO>>(Lawyers);
 
-                //throw new System.NotImplementedException();
             }
         }
     }

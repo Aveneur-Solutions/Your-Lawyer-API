@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.DataContext;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(YourLawyerContext))]
-    partial class YourLawyerContextModelSnapshot : ModelSnapshot
+    [Migration("20210310172804_InitialMigrationForSQLServer")]
+    partial class InitialMigrationForSQLServer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,60 +215,6 @@ namespace Persistence.Migrations
                     b.HasIndex("LawyerId");
 
                     b.ToTable("LawyerEducationalBGs");
-                });
-
-            modelBuilder.Entity("Domain.Models.Messages.QueryFile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("QueryFile");
-                });
-
-            modelBuilder.Entity("Domain.Models.Messages.QueryText", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("QueryText");
                 });
 
             modelBuilder.Entity("Domain.Models.User.AppUser", b =>
@@ -505,28 +453,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("LawyerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Models.Messages.QueryFile", b =>
-                {
-                    b.HasOne("Domain.Models.User.AppUser", "Receiver")
-                        .WithMany("ReceivedQueryFiles")
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("Domain.Models.User.AppUser", "Sender")
-                        .WithMany("SentQueryFiles")
-                        .HasForeignKey("SenderId");
-                });
-
-            modelBuilder.Entity("Domain.Models.Messages.QueryText", b =>
-                {
-                    b.HasOne("Domain.Models.User.AppUser", "Receiver")
-                        .WithMany("ReceivedQueryTexts")
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("Domain.Models.User.AppUser", "Sender")
-                        .WithMany("SentQueryTexts")
-                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

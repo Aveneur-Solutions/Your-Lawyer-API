@@ -20,7 +20,6 @@ namespace Persistence.Initialization
                 var users = new List<AppUser>
                 {
                     new AppUser{
-
                         FirstName = "Zulker",
                         LastName = "Nien",
                         UserName = "PervySage",
@@ -28,26 +27,42 @@ namespace Persistence.Initialization
                         PhoneNumberConfirmed = true
                     },
                      new AppUser{
-
                         FirstName = "Wasif",
                         LastName = "M.Chowdhury",
                         UserName = "CEO",
                         PhoneNumber = "+8801716590911",
                         PhoneNumberConfirmed = true
                     },
-                         new AppUser{
-
+                     new AppUser{                      
+                        FirstName = "Ragib",
+                        LastName = "Ibne Hossain",
+                        UserName = "Insaiyan",
+                        PhoneNumber = "+8801680800602",
+                        PhoneNumberConfirmed = true
+                    },
+                     new AppUser{
+                      
+                        FirstName = "Wasif",
+                        LastName = "M.Chowdhury",
+                        UserName = "CEO",
+                        PhoneNumber = "+8801716590911",
+                        PhoneNumberConfirmed = true
+                    },
+                     new AppUser{                  
                         FirstName = "Muiz",
                         LastName = "Shahabuddin",
                         UserName = "Maharaja",
                         PhoneNumber = "+8801517111997",
+                        PhoneNumberConfirmed = true
+
                     },
                     new AppUser{
                         Id = "legalx",
                         FirstName = "LegalX",
                         LastName = "Bhai",
                         UserName = "legalx",
-                        PhoneNumber = "+8801680800602"
+                        PhoneNumber = "+8801680800602",
+                        PhoneNumberConfirmed = true
                     }
                 };
                 foreach (var user in users)
@@ -126,6 +141,7 @@ namespace Persistence.Initialization
                          }
                          }
                      };
+                     
                 await context.Lawyers.AddRangeAsync(lawyers);
                 await context.SaveChangesAsync();
             }
