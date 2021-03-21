@@ -20,32 +20,34 @@ namespace Persistence.Initialization
                 var users = new List<AppUser>
                 {
                     new AppUser{
-                        Id = "a",
-                        FirstName = "Ashikur",
-                        LastName = "Rahman",
-                        UserName = "BadBitch",
-                        Email = "ashikurrahman80@gmail.com"
-                    },
-                    new AppUser{
-                        Id = "b",
-                        FirstName = "Ashikur",
-                        LastName = "Enan",
-                        UserName = "VeryBadBitch",
-                        Email = "ashikurrahman180@gmail.com"
-                    },
-                    new AppUser{
-                        Id = "c",
-                        FirstName = "Ashikur",
+
+                        FirstName = "Zulker",
                         LastName = "Nien",
-                        UserName = "SuperBadBitch",
-                        Email = "ashikurrahman820@gmail.com"
+                        UserName = "PervySage",
+                        PhoneNumber = "+8801717755244",
+                        PhoneNumberConfirmed = true
+                    },
+                     new AppUser{
+
+                        FirstName = "Wasif",
+                        LastName = "M.Chowdhury",
+                        UserName = "CEO",
+                        PhoneNumber = "+8801716590911",
+                        PhoneNumberConfirmed = true
+                    },
+                         new AppUser{
+
+                        FirstName = "Muiz",
+                        LastName = "Shahabuddin",
+                        UserName = "Maharaja",
+                        PhoneNumber = "+8801517111997",
                     },
                     new AppUser{
-                        Id = "abcdef",
+                        Id = "legalx",
                         FirstName = "LegalX",
                         LastName = "Bhai",
                         UserName = "legalx",
-                        Email = "legalx420@gmail.com"
+                        PhoneNumber = "+8801680800602"
                     }
                 };
                 foreach (var user in users)

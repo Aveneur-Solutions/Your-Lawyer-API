@@ -13,7 +13,7 @@ namespace API.Controllers
     [ApiController]
     public class LawyerController : BaseController
     {
-        [Route("api/lawyer")]
+
         [HttpGet]
         public async Task<ActionResult<List<LawyerDTO>>> LawyerList()
         {
@@ -21,27 +21,39 @@ namespace API.Controllers
         }
 
 
-        [Route("api/lawyer/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<LawyerDTO>> LawyerDetails(Guid id)
         {
             return await Mediator.Send(new LawyerDetails.Query { Id = id });
         }
-        [Route("api/searchlawyers/{divisionName}")]
-        [HttpGet]
+
+        [HttpGet("division/{divisionName}")]
 
         public async Task<ActionResult<List<LawyerDTO>>> LawyerListWithParameters(string divisionName)
         {
             
             return await Mediator.Send(new LawyerListWithParameters.Query { DivisionName = divisionName });
         }
-        
-        [Route("api/upload")]
+
         [HttpPost]
         public async Task<ActionResult<Unit>> UploadLawyer(UploadLawyer.Command command)
         {
             return await Mediator.Send(command);
         }
+        [HttpDelete]
+        //For testing purpose its anonymous
+        public async Task<ActionResult<Unit>> DeleteLawyer(DeleteLawyer.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpDelete("deletemultiple")]
+         //For testing purpose its anonymous
+        public async Task<ActionResult<Unit>> DeleteMultipleLawyers(DeleteMultipleLawyers.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        
+        
 
     }
 }

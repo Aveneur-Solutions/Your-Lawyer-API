@@ -20,40 +20,36 @@ namespace API.SignalR
 
         public async Task SendQueryTextToLegalx(string body)
         {
-            var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var phoneNumber = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var id = username + "abcdef";
+            var id = phoneNumber + "legalx";
 
-            var message = await _mediator.Send(new SendTextToLegalx.Command { Body = body, UserName = username });
+            var message = await _mediator.Send(new SendTextToLegalx.Command { Body = body, PhoneNumber = phoneNumber });
 
             await Clients.Group(id).SendAsync("ReceiveQueryTexts", message);
         }
 
         public async Task SendQueryFileToLegalx(QueryFileDTO file)
         {
-            var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var phoneNumber = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var id = username + "abcdef";
-
-            // var message = await _mediator.Send(new SendFileToLegalx.Command { File = file, UserName = username });
+            var id = phoneNumber + "legalx";
 
             await Clients.Group(id).SendAsync("ReceiveQueryFiles", file);
         }
 
-        public async Task SendQueryTextToUser(string body, string userName)
+        public async Task SendQueryTextToUser(string body, string phoneNumber)
         {
-            var id = userName + "abcdef";
+            var id = phoneNumber + "legalx";
 
-            var message = await _mediator.Send(new SendTextToUser.Command { Body = body, UserName = userName });
+            var message = await _mediator.Send(new SendTextToUser.Command { Body = body, PhoneNumber = phoneNumber });
 
             await Clients.Group(id).SendAsync("ReceiveQueryTexts", message);
         }
 
-        public async Task SendQueryFileToUser(QueryFileDTO file, string userName)
+        public async Task SendQueryFileToUser(QueryFileDTO file, string phoneNumber)
         {
-            var id = userName + "abcdef";
-
-            // var message = await _mediator.Send(new SendFileToUser.Command { File = file, UserName = userName });
+            var id = phoneNumber + "legalx";
 
             await Clients.Group(id).SendAsync("ReceiveQueryFiles", file);
         }

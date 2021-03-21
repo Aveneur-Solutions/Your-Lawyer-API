@@ -13,11 +13,11 @@ namespace Infrastructure.Security
             _httpContext = httpContext;
         }
 
-        public string GetCurrentUsername()
+        public string GetCurrentUserPhoneNo()
         {
-            var username = _httpContext.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var phoneNumber = _httpContext.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            return username;
+            return phoneNumber;
         }
     }
 }

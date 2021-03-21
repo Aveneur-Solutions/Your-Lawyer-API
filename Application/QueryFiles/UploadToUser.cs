@@ -20,7 +20,7 @@ namespace Application.QueryFiles
     {
         public class Command : IRequest<QueryFileDTO>
         {
-            public string UserName { get; set; }
+            public string PhoneNumber { get; set; }
             public IFormFile File { get; set; }
         }
 
@@ -46,8 +46,8 @@ namespace Application.QueryFiles
                     throw new RestException(HttpStatusCode.NotFound, new { User = "Not found" });
                 }
 
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == request.UserName);
-
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
+                if(user == null) throw new RestException(HttpStatusCode.NotFound,new {error = "Kaare paathan bujhlam na"});
                 string filePath = UploadFile(request.File);
 
                 var message = new QueryFile

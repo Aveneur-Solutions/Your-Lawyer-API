@@ -40,12 +40,12 @@ namespace Application.UserAuth
                     // .ThenInclude(x => x.Receiver)
                     .Include(x => x.ReceivedQueryFiles)
                     // .ThenInclude(x => x.Sender)
-                    .FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetCurrentUsername());
+                    .FirstOrDefaultAsync(x => x.PhoneNumber == _userAccessor.GetCurrentUserPhoneNo());
 
                 var user = new UserDTO
                 {
-                    UserName = currentUser.UserName,
-                    Email = currentUser.Email,
+                    FullName = currentUser.FirstName + " " + currentUser.LastName,
+                    PhoneNumber = currentUser.PhoneNumber,
                     Token = _jwtGenerator.CreateToken(currentUser),
                     SentQueryTexts = _mapper.Map<ICollection<QueryText>, List<QueryTextDTO>>(currentUser.SentQueryTexts),
                     ReceivedQueryTexts = _mapper.Map<ICollection<QueryText>, List<QueryTextDTO>>(currentUser.ReceivedQueryTexts),

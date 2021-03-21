@@ -38,7 +38,7 @@ namespace Application.QueryFiles
             }
             public async Task<QueryFileDTO> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetCurrentUsername());
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == _userAccessor.GetCurrentUserPhoneNo());
 
                 if (user == null)
                 {

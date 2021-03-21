@@ -17,7 +17,7 @@ namespace Application.QueryTexts
         public class Command : IRequest<QueryTextDTO>
         {
             public string Body { get; set; }
-            public string UserName { get; set; }
+            public string PhoneNumber { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, QueryTextDTO>
@@ -38,7 +38,7 @@ namespace Application.QueryTexts
                     throw new RestException(HttpStatusCode.NotFound, new { User = "Not found" });
                 }
 
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == request.UserName);
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
 
                 var message = new QueryText
                 {
