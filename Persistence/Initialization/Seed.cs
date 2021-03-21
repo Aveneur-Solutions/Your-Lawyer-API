@@ -11,16 +11,15 @@ namespace Persistence.Initialization
 {
     public class Seed
     {
-        public static async Task SeedData(YourLawyerContext context,UserManager<AppUser> userManager)
+        public static async Task SeedData(YourLawyerContext context, UserManager<AppUser> userManager)
         {
 
 
-            if(!userManager.Users.Any())
+            if (!userManager.Users.Any())
             {
                 var users = new List<AppUser>
                 {
                     new AppUser{
-                      
                         FirstName = "Zulker",
                         LastName = "Nien",
                         UserName = "PervySage",
@@ -28,7 +27,13 @@ namespace Persistence.Initialization
                         PhoneNumberConfirmed = true
                     },
                      new AppUser{
-                      
+                        FirstName = "Wasif",
+                        LastName = "M.Chowdhury",
+                        UserName = "CEO",
+                        PhoneNumber = "+8801716590911",
+                        PhoneNumberConfirmed = true
+                    },
+                     new AppUser{                      
                         FirstName = "Ragib",
                         LastName = "Ibne Hossain",
                         UserName = "Insaiyan",
@@ -43,26 +48,35 @@ namespace Persistence.Initialization
                         PhoneNumber = "+8801716590911",
                         PhoneNumberConfirmed = true
                     },
-                         new AppUser{
-                  
+                     new AppUser{                  
                         FirstName = "Muiz",
                         LastName = "Shahabuddin",
                         UserName = "Maharaja",
                         PhoneNumber = "+8801517111997",
+                        PhoneNumberConfirmed = true
+
+                    },
+                    new AppUser{
+                        Id = "legalx",
+                        FirstName = "LegalX",
+                        LastName = "Bhai",
+                        UserName = "legalx",
+                        PhoneNumber = "+8801680800602",
+                        PhoneNumberConfirmed = true
                     }
                 };
-                foreach(var user in users)
+                foreach (var user in users)
                 {
-                    await userManager.CreateAsync(user,"StrongP@ssw0rd");
+                    await userManager.CreateAsync(user, "StrongP@ssw0rd");
                 }
             }
             // Incomplete
             if (!context.Lawyers.Any())
             {
                 var division = context.Divisions.FirstOrDefault();
-             //   var lawyerEducationBGs = new List<LawyerEducationalBG>{
+                //   var lawyerEducationBGs = new List<LawyerEducationalBG>{
 
-             //   };
+                //   };
                 var lawyers = new List<Lawyer>
                  {
                      new Lawyer{

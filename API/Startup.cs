@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using API.Middleware;
+using API.SignalR;
 using Application.Interfaces;
 using Application.LawyerService;
 using Application.SMSService;
@@ -44,7 +45,7 @@ namespace API
         {
             services.AddDbContext<YourLawyerContext>(opt =>
             {
-                //  opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                //opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
                 //Data Source=173.82.103.99,8433;Initial Catalog=yourlawyerdb;User ID=admin;Password=Test2020;Trusted_Connection=False;
                 //server=(localdb)\\MSSQLLocalDB;database=YourLawyerDB,Trusted_Connection=true
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection"));
@@ -89,13 +90,22 @@ namespace API
             });
 
             services.AddCors(opt =>
-       {
-           opt.AddPolicy("CorsPolicy", policy =>
-           {
-               policy.AllowAnyHeader().AllowAnyMethod().
-               WithOrigins("http://localhost:3000");
-           });
-       });
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000","http://localhost:4000").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                    
+                });
+            });
+
+            //  services.AddTransient<IAuthMessageSender,AuthMessageSender>();
+            services.AddMediatR(typeof(LawyerList.Handler).Assembly);
+            services.AddAutoMapper(typeof(LawyerList.Handler));
+
+            var builder = services.AddIdentityCore<AppUser>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<YourLawyerContext>();
+            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -108,16 +118,25 @@ namespace API
                     ValidateAudience = false,
                     ValidateIssuer = false
                 };
+                opt.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if(!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/query"))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
-            //  services.AddTransient<IAuthMessageSender,AuthMessageSender>();
-            services.AddMediatR(typeof(LawyerList.Handler).Assembly);
-            services.AddAutoMapper(typeof(LawyerList.Handler));
 
-            var builder = services.AddIdentityCore<AppUser>();
-            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-            identityBuilder.AddEntityFrameworkStores<YourLawyerContext>();
-            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
-            services.AddAuthentication();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
+
+            services.AddSignalR();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
         }
 
@@ -125,10 +144,6 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            // }
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -136,15 +151,21 @@ namespace API
                 c.RoutePrefix = string.Empty;
             }
             );
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
             app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
+          
             app.UseAuthorization();
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<QueryHub>("/query");
             });
         }
     }

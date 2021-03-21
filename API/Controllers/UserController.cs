@@ -9,7 +9,6 @@ namespace API.Controllers
 {
     public class UserController : BaseController
     {
-        // [Route("user/login")]
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<ActionResult<Unit>> Login(Login.Command command)
@@ -33,6 +32,12 @@ namespace API.Controllers
         public async Task<ActionResult<UserDTO>> RegisterWithOtp(RegisterWithOtp.Command command)
         {
             return await Mediator.Send(command);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<UserDTO>> CurrentUser()
+        {
+            return await Mediator.Send(new CurrentUser.Query());
         }
     }
 }

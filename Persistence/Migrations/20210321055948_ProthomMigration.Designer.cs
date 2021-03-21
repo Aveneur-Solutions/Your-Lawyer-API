@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.DataContext;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(YourLawyerContext))]
-    partial class YourLawyerContextModelSnapshot : ModelSnapshot
+    [Migration("20210321055948_ProthomMigration")]
+    partial class ProthomMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,42 +37,42 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cb96e4c9-dcbb-4bb3-90b3-abe8bda556f7"),
+                            Id = new Guid("66e1d283-71e6-4eb7-bf20-905797b03cdc"),
                             AreaOfLawName = "Banking and Finance Law"
                         },
                         new
                         {
-                            Id = new Guid("3204228e-752c-4629-ae41-f1496f44a3f4"),
+                            Id = new Guid("3791364a-b1f7-4bbb-a509-ea67680d73b7"),
                             AreaOfLawName = "Civil Litigation"
                         },
                         new
                         {
-                            Id = new Guid("25f40472-e69c-4973-b019-04d87983b0ec"),
+                            Id = new Guid("4ceb2f86-d7de-412a-b584-839b69af6419"),
                             AreaOfLawName = "Dispute Resolution"
                         },
                         new
                         {
-                            Id = new Guid("d72456df-5ba9-4ef5-89c5-53c70f4ac3f6"),
+                            Id = new Guid("5a915ab1-5cb5-461f-8a16-764919f497f2"),
                             AreaOfLawName = "Commercial Law"
                         },
                         new
                         {
-                            Id = new Guid("81b23e44-9894-4211-856a-6abbcaaad8b2"),
+                            Id = new Guid("6caff261-7df3-4a5a-8e97-4440bcfe6f32"),
                             AreaOfLawName = "Construction Law"
                         },
                         new
                         {
-                            Id = new Guid("559120e1-d07f-441d-8a62-e73d9438d7c4"),
+                            Id = new Guid("7f64a231-5d10-4e03-9d08-dd503db8a162"),
                             AreaOfLawName = "Corporate Law"
                         },
                         new
                         {
-                            Id = new Guid("cfe29765-c9b2-4de6-9bd4-5c754846de18"),
+                            Id = new Guid("7f40bd37-f24e-41e5-b64d-b7e6ad28e124"),
                             AreaOfLawName = "Criminal Law"
                         },
                         new
                         {
-                            Id = new Guid("244bf0db-0c69-429c-9b53-888364ccb733"),
+                            Id = new Guid("7a7d7745-ec9a-4a99-a8db-b2648ea0a12c"),
                             AreaOfLawName = "Family Law"
                         });
                 });
@@ -91,43 +93,43 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e877214c-4e03-41fb-877d-c0bb496e9d12"),
+                            Id = new Guid("01162cd7-d899-49ff-bfe0-7d392d0d9cc1"),
                             Name = "Dhaka"
                         },
                         new
                         {
-                            Id = new Guid("fe4268a3-54c5-4325-bc74-78165e0281eb"),
+                            Id = new Guid("d09b2dbf-4906-4d13-9ecd-8be1c6d1561d"),
                             Name = "Chittagong"
                         },
                         new
                         {
-                            Id = new Guid("b4fb3261-4d1a-42b7-a32e-a486f4087030"),
+                            Id = new Guid("bd559232-e8fd-45da-b361-16221d506b91"),
                             Name = "Rajshahi"
                         },
                         new
                         {
-                            Id = new Guid("0d6eb7f3-fa7f-4b87-ab9b-70d19eb71e6f"),
+                            Id = new Guid("8fea7332-109f-4a1e-b7cb-4df902db98e7"),
                             Name = "Khulna"
                         },
                         new
                         {
-                            Id = new Guid("f48109f7-31f6-479b-905f-f7f43c5d55dc"),
+                            Id = new Guid("6cdabfc8-c42f-409e-a916-995e17ceb71b"),
                             Name = "Sylhet"
                         },
                         new
                         {
-                            Id = new Guid("86b62248-d3cf-4617-bc07-096b90ca73e8"),
+                            Id = new Guid("393f4c22-8a13-4b85-8782-078637a74830"),
                             Name = "Mymensingh"
                         },
                         new
                         {
-                            Id = new Guid("10cb82f5-5956-431d-9f42-30dbd6f3dc71"),
+                            Id = new Guid("a6f11c54-eed8-4590-ac89-38c7cbe58668"),
                             Name = "Barisal"
                         },
                         new
                         {
-                            Id = new Guid("7444e626-84f1-49a2-b920-34ec54ebe1cc"),
-                            Name = "Rangpur"
+                            Id = new Guid("34838d43-a7de-4a14-9683-25f4413f1fe0"),
+                            Name = "Rangpur "
                         });
                 });
 
