@@ -16,9 +16,6 @@ namespace API.Controllers
         [HttpPost("filex")]
         public async Task<ActionResult<QueryFileDTO>> UploadToUser([FromForm]UploadToUser.Command command )
         {
-
-
-            
             return await Mediator.Send(command);
         }
     }
