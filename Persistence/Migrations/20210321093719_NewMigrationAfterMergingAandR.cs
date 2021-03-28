@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class ProthomMigration : Migration
+    public partial class NewMigrationAfterMergingAandR : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -310,14 +310,14 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "AreaOfLawName" },
                 values: new object[,]
                 {
-                    { new Guid("66e1d283-71e6-4eb7-bf20-905797b03cdc"), "Banking and Finance Law" },
-                    { new Guid("3791364a-b1f7-4bbb-a509-ea67680d73b7"), "Civil Litigation" },
-                    { new Guid("4ceb2f86-d7de-412a-b584-839b69af6419"), "Dispute Resolution" },
-                    { new Guid("5a915ab1-5cb5-461f-8a16-764919f497f2"), "Commercial Law" },
-                    { new Guid("6caff261-7df3-4a5a-8e97-4440bcfe6f32"), "Construction Law" },
-                    { new Guid("7f64a231-5d10-4e03-9d08-dd503db8a162"), "Corporate Law" },
-                    { new Guid("7f40bd37-f24e-41e5-b64d-b7e6ad28e124"), "Criminal Law" },
-                    { new Guid("7a7d7745-ec9a-4a99-a8db-b2648ea0a12c"), "Family Law" }
+                    { new Guid("b3d5ae32-1ff6-4051-ac47-889291b55e25"), "Banking and Finance Law" },
+                    { new Guid("712d82b8-5fcd-47e9-9a24-272a0650c4d9"), "Civil Litigation" },
+                    { new Guid("f5441f5c-a58f-48da-b18e-897104614438"), "Dispute Resolution" },
+                    { new Guid("1e503a97-8c7d-49ec-a611-c20035b97596"), "Commercial Law" },
+                    { new Guid("cdfbd399-c2fa-424b-aba2-8b9b9fb1e6c7"), "Construction Law" },
+                    { new Guid("2983ef18-7b79-4207-bbcc-ede45e02d3ea"), "Corporate Law" },
+                    { new Guid("84899f78-d3a4-4cdb-b57e-957e73778fae"), "Criminal Law" },
+                    { new Guid("e1778f87-5f80-493c-80d7-0e7b829e0588"), "Family Law" }
                 });
 
             migrationBuilder.InsertData(
@@ -325,14 +325,14 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("01162cd7-d899-49ff-bfe0-7d392d0d9cc1"), "Dhaka" },
-                    { new Guid("d09b2dbf-4906-4d13-9ecd-8be1c6d1561d"), "Chittagong" },
-                    { new Guid("bd559232-e8fd-45da-b361-16221d506b91"), "Rajshahi" },
-                    { new Guid("8fea7332-109f-4a1e-b7cb-4df902db98e7"), "Khulna" },
-                    { new Guid("6cdabfc8-c42f-409e-a916-995e17ceb71b"), "Sylhet" },
-                    { new Guid("393f4c22-8a13-4b85-8782-078637a74830"), "Mymensingh" },
-                    { new Guid("a6f11c54-eed8-4590-ac89-38c7cbe58668"), "Barisal" },
-                    { new Guid("34838d43-a7de-4a14-9683-25f4413f1fe0"), "Rangpur " }
+                    { new Guid("7526c6f7-d744-4f53-9bcf-7550599c7171"), "Dhaka" },
+                    { new Guid("300902b6-b8fc-47a1-b464-5e4991eba959"), "Chittagong" },
+                    { new Guid("0dcf2d4e-ffe7-4d2f-88de-6c0368e87f81"), "Rajshahi" },
+                    { new Guid("e5653502-5520-4c9a-a1ff-53c8c34ff242"), "Khulna" },
+                    { new Guid("56a72120-2388-4a29-b96e-47f8f4d5922e"), "Sylhet" },
+                    { new Guid("265588ab-d80d-4352-b9d3-eebbace1a952"), "Mymensingh" },
+                    { new Guid("043da9bc-eef8-4d55-8eda-3893b292b769"), "Barisal" },
+                    { new Guid("78506e64-36b4-40ee-8048-c4493f6625aa"), "Rangpur" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -61,8 +61,7 @@ namespace Application.LawyerService
                 var lawyer = await _context.Lawyers.FirstOrDefaultAsync(x => x.Id == request.Id);
 
                 if (lawyer == null) throw new RestException(HttpStatusCode.NotFound, new { errors = " No lawyer found with this Id" });
-                try
-                {
+               
                     lawyer.FirstName = request.FirstName ?? lawyer.FirstName;
                     lawyer.LastName = request.LastName ?? lawyer.LastName;
                     lawyer.Description = request.Description ?? lawyer.Description;
@@ -102,11 +101,7 @@ namespace Application.LawyerService
 
                     if (result) return Unit.Value;
 
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+              
                 throw new Exception("Problem saving data");
             }
         }

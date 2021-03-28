@@ -10,8 +10,8 @@ using Persistence.DataContext;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(YourLawyerContext))]
-    [Migration("20210310172804_InitialMigrationForSQLServer")]
-    partial class InitialMigrationForSQLServer
+    [Migration("20210321093719_NewMigrationAfterMergingAandR")]
+    partial class NewMigrationAfterMergingAandR
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,42 +37,42 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cb96e4c9-dcbb-4bb3-90b3-abe8bda556f7"),
+                            Id = new Guid("b3d5ae32-1ff6-4051-ac47-889291b55e25"),
                             AreaOfLawName = "Banking and Finance Law"
                         },
                         new
                         {
-                            Id = new Guid("3204228e-752c-4629-ae41-f1496f44a3f4"),
+                            Id = new Guid("712d82b8-5fcd-47e9-9a24-272a0650c4d9"),
                             AreaOfLawName = "Civil Litigation"
                         },
                         new
                         {
-                            Id = new Guid("25f40472-e69c-4973-b019-04d87983b0ec"),
+                            Id = new Guid("f5441f5c-a58f-48da-b18e-897104614438"),
                             AreaOfLawName = "Dispute Resolution"
                         },
                         new
                         {
-                            Id = new Guid("d72456df-5ba9-4ef5-89c5-53c70f4ac3f6"),
+                            Id = new Guid("1e503a97-8c7d-49ec-a611-c20035b97596"),
                             AreaOfLawName = "Commercial Law"
                         },
                         new
                         {
-                            Id = new Guid("81b23e44-9894-4211-856a-6abbcaaad8b2"),
+                            Id = new Guid("cdfbd399-c2fa-424b-aba2-8b9b9fb1e6c7"),
                             AreaOfLawName = "Construction Law"
                         },
                         new
                         {
-                            Id = new Guid("559120e1-d07f-441d-8a62-e73d9438d7c4"),
+                            Id = new Guid("2983ef18-7b79-4207-bbcc-ede45e02d3ea"),
                             AreaOfLawName = "Corporate Law"
                         },
                         new
                         {
-                            Id = new Guid("cfe29765-c9b2-4de6-9bd4-5c754846de18"),
+                            Id = new Guid("84899f78-d3a4-4cdb-b57e-957e73778fae"),
                             AreaOfLawName = "Criminal Law"
                         },
                         new
                         {
-                            Id = new Guid("244bf0db-0c69-429c-9b53-888364ccb733"),
+                            Id = new Guid("e1778f87-5f80-493c-80d7-0e7b829e0588"),
                             AreaOfLawName = "Family Law"
                         });
                 });
@@ -93,42 +93,42 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e877214c-4e03-41fb-877d-c0bb496e9d12"),
+                            Id = new Guid("7526c6f7-d744-4f53-9bcf-7550599c7171"),
                             Name = "Dhaka"
                         },
                         new
                         {
-                            Id = new Guid("fe4268a3-54c5-4325-bc74-78165e0281eb"),
+                            Id = new Guid("300902b6-b8fc-47a1-b464-5e4991eba959"),
                             Name = "Chittagong"
                         },
                         new
                         {
-                            Id = new Guid("b4fb3261-4d1a-42b7-a32e-a486f4087030"),
+                            Id = new Guid("0dcf2d4e-ffe7-4d2f-88de-6c0368e87f81"),
                             Name = "Rajshahi"
                         },
                         new
                         {
-                            Id = new Guid("0d6eb7f3-fa7f-4b87-ab9b-70d19eb71e6f"),
+                            Id = new Guid("e5653502-5520-4c9a-a1ff-53c8c34ff242"),
                             Name = "Khulna"
                         },
                         new
                         {
-                            Id = new Guid("f48109f7-31f6-479b-905f-f7f43c5d55dc"),
+                            Id = new Guid("56a72120-2388-4a29-b96e-47f8f4d5922e"),
                             Name = "Sylhet"
                         },
                         new
                         {
-                            Id = new Guid("86b62248-d3cf-4617-bc07-096b90ca73e8"),
+                            Id = new Guid("265588ab-d80d-4352-b9d3-eebbace1a952"),
                             Name = "Mymensingh"
                         },
                         new
                         {
-                            Id = new Guid("10cb82f5-5956-431d-9f42-30dbd6f3dc71"),
+                            Id = new Guid("043da9bc-eef8-4d55-8eda-3893b292b769"),
                             Name = "Barisal"
                         },
                         new
                         {
-                            Id = new Guid("7444e626-84f1-49a2-b920-34ec54ebe1cc"),
+                            Id = new Guid("78506e64-36b4-40ee-8048-c4493f6625aa"),
                             Name = "Rangpur"
                         });
                 });
@@ -215,6 +215,60 @@ namespace Persistence.Migrations
                     b.HasIndex("LawyerId");
 
                     b.ToTable("LawyerEducationalBGs");
+                });
+
+            modelBuilder.Entity("Domain.Models.Messages.QueryFile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("QueryFile");
+                });
+
+            modelBuilder.Entity("Domain.Models.Messages.QueryText", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("QueryText");
                 });
 
             modelBuilder.Entity("Domain.Models.User.AppUser", b =>
@@ -453,6 +507,28 @@ namespace Persistence.Migrations
                         .HasForeignKey("LawyerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Messages.QueryFile", b =>
+                {
+                    b.HasOne("Domain.Models.User.AppUser", "Receiver")
+                        .WithMany("ReceivedQueryFiles")
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("Domain.Models.User.AppUser", "Sender")
+                        .WithMany("SentQueryFiles")
+                        .HasForeignKey("SenderId");
+                });
+
+            modelBuilder.Entity("Domain.Models.Messages.QueryText", b =>
+                {
+                    b.HasOne("Domain.Models.User.AppUser", "Receiver")
+                        .WithMany("ReceivedQueryTexts")
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("Domain.Models.User.AppUser", "Sender")
+                        .WithMany("SentQueryTexts")
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

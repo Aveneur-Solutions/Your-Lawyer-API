@@ -57,8 +57,7 @@ namespace Application.UserAuth
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == request.PhoneNumber);
 
-                try
-                {
+                
                     if (user == null)
                     {
                         user = new AppUser
@@ -75,11 +74,7 @@ namespace Application.UserAuth
                         return Unit.Value;
                     }
                     else throw new RestException(HttpStatusCode.Conflict, new { error = "a user already exists with this number" });
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+             
 
                 throw new RestException(HttpStatusCode.Unauthorized, new { error = "Kichu ekta to jhamela korsen e naile ei line execute howar kotha na" });
 

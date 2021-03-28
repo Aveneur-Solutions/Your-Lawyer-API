@@ -73,8 +73,7 @@ namespace Application.LawyerService
 
                 };
 
-                try
-                {
+               
                     var lawyerAndAreaOfLawList = new List<LawyerAndAreaOfLaw> { };
 
                     //iterates the LawyerAreaOfLaws from the request and adds each 
@@ -101,11 +100,8 @@ namespace Application.LawyerService
                     await _context.LawyerAndAreaOfLaws.AddRangeAsync(lawyerAndAreaOfLawList);
                     var result = await _context.SaveChangesAsync() > 0;
                     if (result) return Unit.Value;
-                }
-                catch (Exception ex)
-                {
-                    throw (ex);
-                }
+                
+            
 
 
                 throw new Exception("Problem saving data");

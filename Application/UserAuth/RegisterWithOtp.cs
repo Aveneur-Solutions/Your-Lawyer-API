@@ -50,8 +50,7 @@ namespace Application.UserAuth
 
                 if (user == null) throw new RestException(HttpStatusCode.NotFound, new { error = "No user found with this number" });
 
-                try
-                {
+            
                     if(user.Otp == request.Otp)
                     {
                         user.PhoneNumberConfirmed = true;
@@ -66,11 +65,7 @@ namespace Application.UserAuth
                             PhoneNumber= user.PhoneNumber                         
                         };
                     }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+              
                   throw new RestException(HttpStatusCode.Unauthorized, new { error = "bhung bhang credentials dile dhukte parben na" });
             }
         }

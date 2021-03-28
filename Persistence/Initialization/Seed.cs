@@ -27,34 +27,20 @@ namespace Persistence.Initialization
                         PhoneNumberConfirmed = true
                     },
                      new AppUser{
+                      
                         FirstName = "Wasif",
                         LastName = "M.Chowdhury",
-                        UserName = "CEO",
+                        UserName = "MD",
                         PhoneNumber = "+8801716590911",
-                        PhoneNumberConfirmed = true
-                    },
-                     new AppUser{                      
-                        FirstName = "Ragib",
-                        LastName = "Ibne Hossain",
-                        UserName = "Insaiyan",
-                        PhoneNumber = "+8801680800602",
                         PhoneNumberConfirmed = true
                     },
                      new AppUser{
                       
-                        FirstName = "Wasif",
-                        LastName = "M.Chowdhury",
+                        FirstName = "Fas",
+                        LastName = "Bin AlamG",
                         UserName = "CEO",
                         PhoneNumber = "+8801716590911",
                         PhoneNumberConfirmed = true
-                    },
-                     new AppUser{                  
-                        FirstName = "Muiz",
-                        LastName = "Shahabuddin",
-                        UserName = "Maharaja",
-                        PhoneNumber = "+8801517111997",
-                        PhoneNumberConfirmed = true
-
                     },
                     new AppUser{
                         Id = "legalx",
