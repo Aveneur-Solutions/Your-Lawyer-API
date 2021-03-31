@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.UserAuth;
 using Domain.DTOs;
@@ -38,6 +39,12 @@ namespace API.Controllers
         public async Task<ActionResult<UserDTO>> CurrentUser()
         {
             return await Mediator.Send(new CurrentUser.Query());
+        }
+        [HttpGet("QueryList")]
+        [AllowAnonymous]
+        public async Task<ActionResult<List<UserDTO>>> QueryListUsers()
+        {
+            return await Mediator.Send(new QueryListUsers.Query());
         }
     }
 }
