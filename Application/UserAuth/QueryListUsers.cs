@@ -41,7 +41,7 @@ namespace Application.UserAuth
 
                 foreach (var user in users)
                 {
-                    if (user.SentQueryTexts.Count != 0)
+                    if (user.SentQueryTexts.Count != 0 && user.FirstName != "LegalX")
                     {
                         var u = new UserDTO
                         {
@@ -55,17 +55,6 @@ namespace Application.UserAuth
                         queryUsers.Add(u);
                     }
                 }
-                // var user = new UserDTO
-                // {
-                //     FullName = currentUser.FirstName + " " + currentUser.LastName,
-                //     PhoneNumber = currentUser.PhoneNumber,
-                //     Token = _jwtGenerator.CreateToken(currentUser),
-                //     SentQueryTexts = _mapper.Map<ICollection<QueryText>, List<QueryTextDTO>>(currentUser.SentQueryTexts),
-                //     ReceivedQueryTexts = _mapper.Map<ICollection<QueryText>, List<QueryTextDTO>>(currentUser.ReceivedQueryTexts),
-                //     SentQueryFiles = _mapper.Map<ICollection<QueryFile>, List<QueryFileDTO>>(currentUser.SentQueryFiles),
-                //     ReceivedQueryFiles = _mapper.Map<ICollection<QueryFile>, List<QueryFileDTO>>(currentUser.ReceivedQueryFiles)
-                // };
-
                 return queryUsers;
             }
         }

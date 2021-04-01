@@ -36,6 +36,7 @@ namespace Application.UserAuth
                     .Include(x => x.SentQueryTexts)
                         .ThenInclude(x => x.Receiver)
                     .Include(x => x.ReceivedQueryTexts)
+                     .ThenInclude(x => x.Sender)
                     .Include(x => x.SentQueryFiles)
                     // .ThenInclude(x => x.Receiver)
                     .Include(x => x.ReceivedQueryFiles)

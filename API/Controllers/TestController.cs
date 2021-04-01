@@ -8,7 +8,7 @@ namespace API.Controllers
     {
         [HttpGet("altufaltu")]
         [AllowAnonymous]
-        public async Task<IActionResult> ClickMe()
+        public  IActionResult ClickMe()
         {
             return Ok("Hi");
         }
