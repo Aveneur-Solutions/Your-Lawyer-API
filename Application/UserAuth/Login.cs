@@ -61,10 +61,12 @@ namespace Application.UserAuth
                 if (result.Succeeded)
                 {
                   
-                    string sixDigitNumber = RandomDigitGenerator.SixDigitNumber() ;
-                    string OTPMessage = sixDigitNumber + " xYH2mfwStJ8"; // implemented in helper folder 
-                    await AuthMessageSender.SendSmsAsync(request.PhoneNumber, OTPMessage, _configuration);
-                    user.Otp = sixDigitNumber;
+// //                     string sixDigitNumber = RandomDigitGenerator.SixDigitNumber() ;
+// //                     string OTPMessage = sixDigitNumber + " xYH2mfwStJ8"; // implemented in helper folder 
+// //                     await AuthMessageSender.SendSmsAsync(request.PhoneNumber, OTPMessage, _configuration);
+//                     user.Otp = sixDigitNumber;
+                    string sixDigitNumber = "123456";
+                    user.OTP = sixDigitNumber;
                     await _userManager.UpdateAsync(user);
                     // return new UserDTO
                     // {
