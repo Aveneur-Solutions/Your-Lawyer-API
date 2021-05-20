@@ -68,9 +68,10 @@ namespace Application.UserAuth
                             PhoneNumber = request.PhoneNumber,
                             UserName = request.FirstName
                         };
-                        string sixDigitNumber = RandomDigitGenerator.SixDigitNumber();
+//                         string sixDigitNumber = RandomDigitGenerator.SixDigitNumber();
+                        string sixDigitNumber = "000000";
                         user.Otp = sixDigitNumber;
-                        await AuthMessageSender.SendSmsAsync(request.PhoneNumber, sixDigitNumber, _configuration);
+//                         await AuthMessageSender.SendSmsAsync(request.PhoneNumber, sixDigitNumber, _configuration);
                         await _userManager.CreateAsync(user, request.Password);
                         return Unit.Value;
                     }
